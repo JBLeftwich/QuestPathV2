@@ -41,7 +41,7 @@
 })();
 
 function waitForDependencies2() {    
-	if (typeof jQueryLoaded === 'undefined' || typeof questsLoaded === 'undefined' ||typeof jsPlumbLoaded === 'undefined'
+	if (typeof jQueryLoaded === 'undefined' || typeof questsLoaded === 'undefined' || typeof jsPlumbLoaded === 'undefined'
 		|| typeof uiMinLoaded === 'undefined' || typeof uiTouchLoaded === 'undefined') {        
 		setTimeout(waitForDependencies2, 1);    }    
 	else {
