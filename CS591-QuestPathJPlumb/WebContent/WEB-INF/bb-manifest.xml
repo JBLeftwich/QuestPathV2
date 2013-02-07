@@ -2,43 +2,46 @@
 <manifest>
 	<!-- core extension information -->
 	<plugin>
-		<name value= "Gamegogy Quest Path Block"/>
-		<handle value= "questpathblock"/>
-		<description value= " Here is a description."/>
-		<version value= "1.0.1"/>
+		<name value="Gamegogy Quest Path Block" />
+		<handle value="questpathblock" />
+		<description value=" Here is a description." />
+		<version value="1.0.1" />
 		<requires>
-			<bbversion value="9.0.0"/>
+			<bbversion value="9.0.0" />
 		</requires>
 		<vendor>
-			<id value="dt"/>
-			<name value="Team Quest Path"/>
+			<id value="dt" />
+			<name value="David Thornton" />
 			<url value="http://www.jsu.edu/mcis/people/thornton.html" />
 			<description value="This is part of a research project." />
 		</vendor>
-		<http-actions>
-		</http-actions>
-  
+		<http-actions />
+
 		<!-- Modules, types, and channels for the community -->
-		<module-defs>		
-			<module-type ext-ref="questpathblock" title="Gamegogy Quest Path Block" uicreatable="true">
-				<jsp>		
-				  <view>questpath.jsp</view>		
-				</jsp>		
-			</module-type>		
-			<module type="questpathblock" isadmin="true" isavailabletocourse="true" useraddable="true" isdeletable="true" isdetachable="true" title="Gamegogy Quest Path Block">		
-				<description>Description here.</description>		
-				<ExtraInfo />		
-				<module-groups>		
-					<module-group id="Everyone"/>		
-				</module-groups>		
-			</module>		
+		<module-defs>
+			<module-type ext-ref="questpathblock" title="Gamegogy Quest Path Block"
+				uicreatable="true">
+				<jsp>
+					<view>questpath.jsp</view>
+					<edit>questpath_config.jsp</edit>
+				</jsp>
+			</module-type>
+			<module type="questpathblock" isadmin="true"
+				isavailabletocourse="true" useraddable="true" isdeletable="true"
+				isdetachable="true" title="Gamegogy Quest Path Block">
+				<description>Provides a graphical approach to displaying content and
+					related content based on adaptive release rules.</description>
+				<ExtraInfo />
+				<module-groups>
+					<module-group id="Everyone" />
+				</module-groups>
+			</module>
 		</module-defs>
- 
 		<!-- code permissions required for proper operation -->
 		<permissions>
-			<permission type="persist" name="Content" actions="create,modify,delete"/>
-			<permission type="attribute" name="user.authinfo" actions="get,set"/>
-			<permission type="attribute" name="user.personalinfo" actions="get,set"/>
+			<permission type="persist" name="Content" actions="create,modify,delete" />
+			<permission type="attribute" name="user.authinfo" actions="get,set" />
+			<permission type="attribute" name="user.personalinfo" actions="get,set" />
 		</permissions>
 	</plugin>
 </manifest>

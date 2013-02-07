@@ -16,7 +16,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<%@page import="com.jsu.cs591.web.util.QPAttributes"%>
 <%@page import="blackboard.persist.content.impl.ContentDbPersisterImpl"%>
 <%@page import="blackboard.persist.content.avlrule.AvailabilityRuleDbPersister"%>
 <%@page import="blackboard.data.gradebook.impl.Grade"%>
@@ -68,6 +67,7 @@
 <%@page import="com.jsu.cs521.questpath.buildingblock.util.*" %>
 <%@page import="com.jsu.cs521.questpath.buildingblock.object.*" %>
 <%@page import="com.jsu.cs521.questpath.buildingblock.engine.*" %>
+<%@page import="com.jsu.cs591.web.util.QPAttributes"%>
 <!-- for utilities -->
 <%@ taglib uri="/bbData" prefix="bbData"%>
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
@@ -90,9 +90,7 @@
 				isUserAnInstructor = true;
 			}
 
-			//	String jsPath = PlugInUtil.getUri("dt", "questpathblock", "js/highcharts.js");
 			String cssPath1 = PlugInUtil.getUri("dt", "questpathblock",	"css/chartDemo.css");
-			String cssPath2 = PlugInUtil.getUri("dt", "questpathblock",	"css/jsPlumbDemo.css"); 
 			String jQuery = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.min.js");
 			String jQueryui = PlugInUtil.getUri("dt", "questpathblock", "js/jquery-ui.min.js");
 			String jsPlumb = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.jsPlumb-1.3.16-all-min.js");
@@ -100,22 +98,7 @@
 			String questPath = PlugInUtil.getUri("dt", "questpathblock","js/questPath.js");
 	%>
 
-<!-- <!DOCTYPE HTML> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
-<!-- <title>QuestPath 1.0.2</title> -->
-<%-- <link rel="stylesheet" type="text/css" href="<%=cssPath1%>" /> --%>
-<%-- <link rel="stylesheet" type="text/css" href="<%=cssPath2%>" /> --%>
-<%-- <bbNG:jsFile href="<%=jQuery%>"/> --%>
-<%-- <script type="text/javascript" src ="<%=jQuery%>"></script> --%>
-<%-- <script type="text/javascript" src ="<%=jQueryui%>"></script> --%>
-<%-- <script type="text/javascript" src ="<%=jsPlumb%>"></script> --%>
-<%-- <script type="text/javascript" src ="<%=jsTouch%>"></script> --%>
-<%-- <script type="text/javascript" src ="<%=questPath%>"></script> --%>
 <bbNG:cssFile href="<%=cssPath1%>"/>
-<bbNG:cssFile href="<%=cssPath2%>"/>
-<!-- </head> -->
 <body>
 <div id="questpathBlockContainer" class="mainDiv">
 		<%
@@ -230,19 +213,11 @@
 				questString = qpUtil.toJson(qPaths);%>
 var quests = <%=questString%>;
 var questsLoaded = true;
-function openAssignment(link) {
-	urlLoc = window.location;
-	if (urlLoc.toString().indexOf('detach_module') !== -1) {
-		window.location.href = '../../../blackboard/' + link;	
-	}
-	else {window.location.href = '../../' + link;}
-
-}
 </script>
 <bbNG:jsFile href="<%=jQuery%>"/>
-<%-- <bbNG:jsFile href="<%=jQueryui%>"/> --%>
-<%-- <bbNG:jsFile href="<%=jsPlumb%>"/> --%>
-<%-- <bbNG:jsFile href="<%=jsTouch%>"/> --%>
+<bbNG:jsFile href="<%=jQueryui%>"/>
+<bbNG:jsFile href="<%=jsPlumb%>"/>
+<bbNG:jsFile href="<%=jsTouch%>"/>
 <bbNG:jsFile href="<%=questPath%>"/>
 <div class="legend"><h5>LEGEND</h5>
 <div class="legendColor passed">Passed</div>
@@ -251,8 +226,5 @@ function openAssignment(link) {
 <div class="legendColor unlocked">Unlocked</div>
 </div>
 </div>
-<%-- </bbNG:includedPage> --%>
 </body>
-<!-- </html> -->
-<%-- </bbData:context> --%>
 </bbNG:includedPage>
