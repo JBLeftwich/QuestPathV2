@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <!-- 
 	Gamegogy Quest Path 1.0
     Copyright (C) 2012  David Thornton
@@ -90,7 +91,7 @@
 				isUserAnInstructor = true;
 			}
 
-			String cssPath1 = PlugInUtil.getUri("dt", "questpathblock",	"css/chartDemo.css");
+			String cssPath1 = PlugInUtil.getUri("dt", "questpathblock",	"css/questPath.css");
 			String jQuery = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.min.js");
 			String jQueryui = PlugInUtil.getUri("dt", "questpathblock", "js/jquery-ui.min.js");
 			String jsPlumb = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.jsPlumb-1.3.16-all-min.js");
@@ -119,11 +120,11 @@
 								t.getContentId(), false, null));
 					}
 				}
-				String testString = "";
+				String qLayout = "";
 				for (Content c : children) {
 					if (c.getTitle().equalsIgnoreCase("test")
 							|| c.getTitle().equalsIgnoreCase("test.txt")) {
-						testString = c.getTitle() + " " + c.getBody().getText();
+						qLayout = c.getBody().getText();
 					}
 				}
 
@@ -172,12 +173,12 @@
 				int top = 0;
 				int left = 0;
 				for (QuestPath qp : qPaths) { %>
-				<div id="<%="QP" + j%>" class="window questName"><%=qp.getQuestName() %></div>
+				<div id="<%="QP" + j%>" class="questItem questName"><%=qp.getQuestName() %></div>
 				<%
 						for (QuestPathItem qpI : qp.getQuestPathItems()) {
 							QPAttributes qpAtt = new QPAttributes(qpI);
 				%>
-			<div id="<%=j + "-" + qpI.getName().replace(" ", "_")%>" class="window <%=qpAtt.getStatusClassName() %>"
+			<div id="<%=j + "-" + qpI.getName().replace(" ", "_")%>" class="questItem <%=qpAtt.getStatusClassName() %>"
 				title="<%=qpAtt.getTitle()%>" 
 				<% if (!qpI.isLocked()) { %>
 				ondblclick="openAssignment('execute/uploadAssignment?content_id=<%=qpI.getContentId().getExternalString()%>&course_id=<%=ctx.getCourseId().toExternalString()%>&assign_group_id=&mode=view');"
@@ -212,6 +213,7 @@
 				}
 				questString = qpUtil.toJson(qPaths);%>
 var quests = <%=questString%>;
+var questLayout = <%=qLayout%>;
 var questsLoaded = true;
 </script>
 <bbNG:jsFile href="<%=jQuery%>"/>

@@ -3,6 +3,7 @@
 	window.jsPlumbDemo = {
 
 			init : function() {			
+				//jsPlumb.setRenderMode(jsPlumb.VML);
 
 				var color = "black";
 				jsPlumb.importDefaults({
@@ -36,7 +37,7 @@
 					}
 				}
 
-				jsPlumb.draggable(jsPlumb.getSelector(".window"));
+				jsPlumb.draggable(jsPlumb.getSelector(".questItem"));
 			}
 	};
 
@@ -69,7 +70,7 @@ function waitForDependencies() {
 		|| typeof uiMinLoaded === 'undefined' || typeof uiTouchLoaded === 'undefined') {        
 		setTimeout(waitForDependencies, 1);}    
 	else {
-		jsPlumb.bind("ready", function() {alert("2"); moveItems(); jsPlumbDemo.init();});
+		jsPlumb.bind("ready", function() {moveItems(); jsPlumbDemo.init();});
 	}
 }
 
@@ -83,4 +84,31 @@ function openAssignment(link) {
 	else {window.location.href = '../../' + link;}
 
 }
-jsPlumb.bind("ready", function() {alert("1"); moveItems(); jsPlumbDemo.init();});
+
+function setLocation() {
+	var qLayout = new Object();
+	qLayout.height = document.getElementById('questpathBlockContainer').offsetHeight;
+	qLayout.width = document.getElementById('questpathBlockContainer').offsetWidth;
+	qLayout.qItemLayout = new Array();
+	var k = 0;
+	for (var i = 0; i < quests.length; i++) {
+		var qItem = new Object();
+		qItem.name = "QP" + i;
+		qItem.top = document.getElementById("QP" + i).style.top;
+		qItem.left = document.getElementById("QP" + i).style.left;
+		qLayout.qItemLayout[k] = qItem;
+		k++;
+		for (var j = 0; j < quests[i].questPathItems.length; j++) {
+				var qItem = new Object();
+				qItem.name = i + '-' + quests[i].questPathItems[j].name;
+				qItem.top = document.getElementById(i + '-' + quests[i].questPathItems[j].name).style.top;
+				qItem.left = document.getElementById(i + '-' + quests[i].questPathItems[j].name).style.left;
+				qLayout.qItemLayout[k] = qItem;
+				k++;
+		}
+	} 
+	document.getElementById("testVar").value = JSON.stringify(qLayout);
+	alert(document.getElementById("testVar").value);
+}
+
+//jsPlumb.bind("ready", function() {moveItems(); jsPlumbDemo.init();});
