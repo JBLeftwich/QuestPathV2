@@ -30,8 +30,6 @@
 <%@page import="blackboard.persist.navigation.CourseTocDbLoader"%>
 <%@ taglib uri="/bbData" prefix="bbData"%>
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
-<!-- for tags -->
-<%-- <bbData:context id="ctx">  --%>
 <bbNG:includedPage ctxId="ctx">
 <%              
 			BbPersistenceManager bbPm = BbServiceManager.getPersistenceService().getDbPersistenceManager();			
