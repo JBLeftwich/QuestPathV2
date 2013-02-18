@@ -44,25 +44,19 @@
 })();
 
 function moveItems() {
-	var topX = [113, 176, 373, 214, 206, 333, 198, 375];
-	var leftX =  [293, 223, 310, 95, 485, 466, 788, 594 ];
-	var k = 0;
-//	alert(document.getElementById('questpathBlockContainer').offsetLeft);
-//	alert(document.getElementById('questpathBlockContainer').offsetHeight);
-	for (var i = 0; i < quests.length; i++) {
-		for (var j = 0; j < quests[i].questPathItems.length; j++) {
-				var x = document.getElementById(i + '-' + quests[i].questPathItems[j].name);
-				x.style.top = topX[k].toString() + 'px';
-				x.style.left = leftX[k].toString() + 'px';
-				k++;
-		}
+	var initWidth = questLayout.width;
+//	var initHeight = questLayout.height;
+	var currentWidth = document.getElementById('questpathBlockContainer').offsetWidth;
+	var widthRatio = currentWidth/initWidth;
+	alert(currentWidth + ":" + initWidth + ":" + widthRatio);
+//	var topX = [113, 176, 373, 214, 206, 333, 198, 375];
+//	var leftX =  [293, 223, 310, 95, 485, 466, 788, 594 ];
+//	var k = 0;
+	for (var i = 0; i < questLayout.qItemLayout.length; i++) {
+			var x = document.getElementById(questLayout.qItemLayout[i].name);
+			x.style.top = (parseInt(questLayout.qItemLayout[i].top) * 1) + "px";
+			x.style.left = (parseInt(questLayout.qItemLayout[i].left) * widthRatio) + "px";
 	}
-	var x = document.getElementById('QP0');
-	x.style.top = '324px';
-	x.style.left = '145px';
-	var y = document.getElementById('QP1');
-	y.style.top = '249px';
-	y.style.left = '638px';
 };
 
 function waitForDependencies() {    

@@ -25,7 +25,9 @@
 	border:0.1em dotted #d4e06b; 
 	opacity:0.8; 
 	filter:alpha(opacity=80); 
-  	width:10em; height:4em;   
+/*   	width:10em; height:4em;    */
+  	width:10%; 
+  	height:5%;  
  	z-index:1;  
  	position:absolute;  
 /*  	position: relative; */
@@ -49,7 +51,7 @@
 .saveButton {
  	position: absolute;
 	right: 0%;
-	bottom:0%;
+	bottom:100%;
 	z-index:0;
 	border: thick;
 }

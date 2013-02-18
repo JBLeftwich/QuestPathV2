@@ -41,6 +41,13 @@
 	%>
 
 <bbNG:cssFile href="<%=cssPath1%>"/>
+<script type="text/javascript">
+<jsp:include page="js/jquery.min.js" />
+<jsp:include page="js/jquery.jsPlumb-1.3.16-all-min.js" />
+<jsp:include page="js/jquery.ui.touch-punch.min.js" />
+<jsp:include page="js/questPath.js" />
+</script>
+<jsp:include page="ScriptFile.jsp" />
 <body>
 <div id="questpathBlockContainer" class="mainDiv">
 <%
@@ -83,11 +90,11 @@ var quests = <%=questString%>;
 var questLayout = <%=proc.qLayout%>;
 var questsLoaded = true;
 </script>
-<bbNG:jsFile href="<%=jQuery%>"/>
-<bbNG:jsFile href="<%=jQueryui%>"/>
-<bbNG:jsFile href="<%=jsPlumb%>"/>
-<bbNG:jsFile href="<%=jsTouch%>"/>
-<bbNG:jsFile href="<%=questPath%>"/>
+<%-- <bbNG:jsFile href="<%=jQuery%>"/> --%>
+<%-- <bbNG:jsFile href="<%=jQueryui%>"/> --%>
+<%-- <bbNG:jsFile href="<%=jsPlumb%>"/> --%>
+<%-- <bbNG:jsFile href="<%=jsTouch%>"/> --%>
+<%-- <bbNG:jsFile href="<%=questPath%>"/> --%>
 <div class="legend"><h5>LEGEND</h5>
 <div class="legendColor passed">Passed</div>
 <div class="legendColor failed">Attempted</div>
@@ -95,6 +102,6 @@ var questsLoaded = true;
 <div class="legendColor unlocked">Unlocked</div>
 </div>
 </div>
-<div>Version 1.1</div>
+<div>Version 1.4</div>
 </body>
 </bbNG:includedPage>

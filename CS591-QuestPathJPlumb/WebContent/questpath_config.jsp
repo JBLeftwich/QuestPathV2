@@ -63,15 +63,24 @@
 	}
 	questString = proc.qpUtil.toJson(proc.qPaths);%>
 	var quests = <%=questString%>;
+	var questLayout = <%=proc.qLayout%>;
 	var questsLoaded = true;
 </script>
 </bbNG:jsBlock>
-<bbNG:jsFile href="<%=jQuery%>"/>
-<bbNG:jsFile href="<%=jQueryui%>"/>
-<bbNG:jsFile href="<%=jsPlumb%>"/>
-<bbNG:jsFile href="<%=jsTouch%>"/>
-<bbNG:jsFile href="<%=json2%>"/>
-<bbNG:jsFile href="<%=questPath%>"/>
+<script type="text/javascript">
+<jsp:include page="js/jquery.min.js" />
+<jsp:include page="js/jquery.jsPlumb-1.3.16-all-min.js" />
+<jsp:include page="js/jquery.ui.touch-punch.min.js" />
+<jsp:include page="js/json2.js" />
+<jsp:include page="js/questPath.js" />
+</script>
+<jsp:include page="ScriptFile.jsp" />
+<%-- <bbNG:jsFile href="<%=jQuery%>"/> --%>
+<%-- <bbNG:jsFile href="<%=jQueryui%>"/> --%>
+<%-- <bbNG:jsFile href="<%=jsPlumb%>"/> --%>
+<%-- <bbNG:jsFile href="<%=jsTouch%>"/> --%>
+<%-- <bbNG:jsFile href="<%=json2%>"/> --%>
+<%-- <bbNG:jsFile href="<%=questPath%>"/> --%>
 <div class="legend">
 	<h5>LEGEND</h5>
 	<div class="legendColor passed">Passed</div>
@@ -84,7 +93,7 @@
 </div>
 </div>
 	<bbNG:dataCollection>
-		<bbNG:step title="QuestPath Configuration 1" >
+		<bbNG:step title="QuestPath Configuration 1.1" >
 			<input type="text" id="testVar" name="testVar" value='<%=proc.qLayout%>' />
 			<input type="hidden" name="course_id" value="<%=request.getParameter("course_id")%>" />
 		</bbNG:step>
