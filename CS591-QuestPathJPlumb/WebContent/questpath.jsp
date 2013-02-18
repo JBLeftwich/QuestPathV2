@@ -102,6 +102,5 @@ var questsLoaded = true;
 <div class="legendColor unlocked">Unlocked</div>
 </div>
 </div>
-<div>Version 1.4</div>
 </body>
 </bbNG:includedPage>

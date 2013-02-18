@@ -48,7 +48,7 @@ function moveItems() {
 //	var initHeight = questLayout.height;
 	var currentWidth = document.getElementById('questpathBlockContainer').offsetWidth;
 	var widthRatio = currentWidth/initWidth;
-	alert(currentWidth + ":" + initWidth + ":" + widthRatio);
+//	alert(currentWidth + ":" + initWidth + ":" + widthRatio);
 //	var topX = [113, 176, 373, 214, 206, 333, 198, 375];
 //	var leftX =  [293, 223, 310, 95, 485, 466, 788, 594 ];
 //	var k = 0;
@@ -102,7 +102,8 @@ function setLocation() {
 		}
 	} 
 	document.getElementById("testVar").value = JSON.stringify(qLayout);
-	alert(document.getElementById("testVar").value);
+//	alert(document.getElementById("testVar").value);
 }
 
+window.onresize=function(){moveItems(); jsPlumbDemo.init();};
 //jsPlumb.bind("ready", function() {moveItems(); jsPlumbDemo.init();});

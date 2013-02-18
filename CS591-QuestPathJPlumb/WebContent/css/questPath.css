@@ -51,7 +51,7 @@
 .saveButton {
  	position: absolute;
 	right: 0%;
-	bottom:100%;
+	bottom:0%;
 	z-index:0;
 	border: thick;
 }
