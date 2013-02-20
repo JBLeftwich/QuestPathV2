@@ -89,7 +89,7 @@
 	<div class="legendColor unlocked">Unlocked</div>
 </div>
 <div class="saveButton">
-<button type="button" onclick="setLocation();">Confirm Layout</button>
+<!-- <button type="button" onclick="setLocation();">Confirm Layout</button> -->
 </div>
 </div>
 	<bbNG:dataCollection>
@@ -97,7 +97,9 @@
 			<input type="text" id="testVar" name="testVar" value='<%=proc.qLayout%>' />
 			<input type="hidden" name="course_id" value="<%=request.getParameter("course_id")%>" />
 		</bbNG:step>
-		<bbNG:stepSubmit />
+		<bbNG:stepSubmit>
+		<bbNG:stepSubmitButton onClick="setLocation();" label="Submit"/>
+		</bbNG:stepSubmit>
 	</bbNG:dataCollection>
 </bbNG:form>
 </bbNG:modulePage>
