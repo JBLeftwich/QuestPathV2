@@ -9,4 +9,18 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+<servlet>
+		<display-name>DWR Servlet</display-name>
+  		<servlet-name>dwr-invoker</servlet-name>  
+  		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+  		<init-param>
+			<param-name>crossDomainSessionSecurity</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+	  <servlet-name>dwr-invoker</servlet-name>
+	  <url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
 </web-app>
