@@ -36,8 +36,10 @@
 						}
 					}
 				}
-
-				jsPlumb.draggable(jsPlumb.getSelector(".questItem"));
+				
+				if (questDraggable) {
+					jsPlumb.draggable(jsPlumb.getSelector(".questItem"));
+				}
 			}
 	};
 

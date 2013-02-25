@@ -89,6 +89,7 @@ questString = proc.qpUtil.toJson(proc.qPaths);%>
 var quests = <%=questString%>;
 var questLayout = <%=proc.qLayout%>;
 var questsLoaded = true;
+var questDraggable = false;
 </script>
 <%-- <bbNG:jsFile href="<%=jQuery%>"/> --%>
 <%-- <bbNG:jsFile href="<%=jQueryui%>"/> --%>

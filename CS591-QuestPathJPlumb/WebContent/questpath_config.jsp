@@ -10,6 +10,7 @@
 <%
 		Processor proc = new Processor();
 		proc.QPDriver(ctx);
+		if (proc.isUserAnInstructor) {
 		String cssPath1 = PlugInUtil.getUri("dt", "questpathblock",	"css/questPath.css");
 		String jQuery = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.min.js");
 		String jQueryui = PlugInUtil.getUri("dt", "questpathblock", "js/jquery-ui.min.js");
@@ -65,6 +66,7 @@
 	var quests = <%=questString%>;
 	var questLayout = <%=proc.qLayout%>;
 	var questsLoaded = true;
+	var questDraggable = true;
 </script>
 </bbNG:jsBlock>
 <script type="text/javascript">
@@ -102,4 +104,8 @@
 		</bbNG:stepSubmit>
 	</bbNG:dataCollection>
 </bbNG:form>
+<%} 
+else {%>
+<h2>Personal Configuration for Students is not currently active, please check back later.</h2>
+<%}%>
 </bbNG:modulePage>
