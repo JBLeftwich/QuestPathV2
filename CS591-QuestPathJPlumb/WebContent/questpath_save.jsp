@@ -59,5 +59,6 @@
 <div id="questpathBlockContainer" class="mainDiv">
 SAVED!!!
 </div>
+<script type="text/javascript">history.go(-2);</script>
 </body>
 </bbNG:includedPage>
