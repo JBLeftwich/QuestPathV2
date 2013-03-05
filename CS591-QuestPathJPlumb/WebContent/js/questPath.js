@@ -17,18 +17,18 @@
 				});
 
 
-				
+
 				var arrowCommon = { foldback:1.0, fillStyle:color, width:14 },
-				
+
 				overlays = [[ "Arrow", { location:0.5 }, arrowCommon ]];
 
 				for (var i = 0; i < quests.length; i++) {
 					for (var j = 0; j < quests[i].questPathItems.length; j++) {
 						for (var k = 0; k < quests[i].questPathItems[j].childContent.length; k++) {
 							if ((quests[i].questPathItems[j].passed && quests[i].questPathItems[j].unLocked) || 
-								 (!quests[i].questPathItems[j].gradable && quests[i].questPathItems[j].unLocked)) {
+									(!quests[i].questPathItems[j].gradable && quests[i].questPathItems[j].unLocked)) {
 								jsPlumb.connect({source:i + '-' + quests[i].questPathItems[j].name,  
-								target:i + "-" + quests[i].questPathItems[j].childContent[k], paintStyle:{lineWidth:3, strokeStyle:"#25f300"}, overlays:overlays});
+									target:i + "-" + quests[i].questPathItems[j].childContent[k], paintStyle:{lineWidth:3, strokeStyle:"#25f300"}, overlays:overlays});
 							} else {
 								jsPlumb.connect({source:i + '-' + quests[i].questPathItems[j].name,  
 									target:i + "-" + quests[i].questPathItems[j].childContent[k], paintStyle:{lineWidth:3, strokeStyle:"#f30e00"}, overlays:overlays});
@@ -36,7 +36,7 @@
 						}
 					}
 				}
-				
+
 				if (questDraggable) {
 					jsPlumb.draggable(jsPlumb.getSelector(".questItem"));
 				}
@@ -46,18 +46,24 @@
 })();
 
 function moveItems() {
-	var initWidth = questLayout.width;
-//	var initHeight = questLayout.height;
-	var currentWidth = document.getElementById('questpathBlockContainer').offsetWidth;
-	var widthRatio = currentWidth/initWidth;
-//	alert(currentWidth + ":" + initWidth + ":" + widthRatio);
-//	var topX = [113, 176, 373, 214, 206, 333, 198, 375];
-//	var leftX =  [293, 223, 310, 95, 485, 466, 788, 594 ];
-//	var k = 0;
-	for (var i = 0; i < questLayout.qItemLayout.length; i++) {
-			var x = document.getElementById(questLayout.qItemLayout[i].name);
-			x.style.top = (parseInt(questLayout.qItemLayout[i].top) * 1) + "px";
-			x.style.left = (parseInt(questLayout.qItemLayout[i].left) * widthRatio) + "px";
+	if (questLayout != null) {
+		var initWidth = questLayout.width;
+//		var initHeight = questLayout.height;
+		var currentWidth = document.getElementById('questpathBlockContainer').offsetWidth;
+		var widthRatio = currentWidth/initWidth;
+//		alert(currentWidth + ":" + initWidth + ":" + widthRatio);
+//		var topX = [113, 176, 373, 214, 206, 333, 198, 375];
+//		var leftX =  [293, 223, 310, 95, 485, 466, 788, 594 ];
+//		var k = 0;
+		try {
+			for (var i = 0; i < questLayout.qItemLayout.length; i++) {
+				try {
+					var x = document.getElementById(questLayout.qItemLayout[i].name);
+					x.style.top = (parseInt(questLayout.qItemLayout[i].top) * 1) + "px";
+					x.style.left = (parseInt(questLayout.qItemLayout[i].left) * widthRatio) + "px";
+				} catch(exception) {continue;}
+			}
+		} catch(exception) {}
 	}
 };
 
@@ -95,12 +101,12 @@ function setLocation() {
 		qLayout.qItemLayout[k] = qItem;
 		k++;
 		for (var j = 0; j < quests[i].questPathItems.length; j++) {
-				var qItem = new Object();
-				qItem.name = i + '-' + quests[i].questPathItems[j].name;
-				qItem.top = document.getElementById(i + '-' + quests[i].questPathItems[j].name).style.top;
-				qItem.left = document.getElementById(i + '-' + quests[i].questPathItems[j].name).style.left;
-				qLayout.qItemLayout[k] = qItem;
-				k++;
+			var qItem = new Object();
+			qItem.name = i + '-' + quests[i].questPathItems[j].name;
+			qItem.top = document.getElementById(i + '-' + quests[i].questPathItems[j].name).style.top;
+			qItem.left = document.getElementById(i + '-' + quests[i].questPathItems[j].name).style.left;
+			qLayout.qItemLayout[k] = qItem;
+			k++;
 		}
 	} 
 	document.getElementById("testVar").value = JSON.stringify(qLayout);

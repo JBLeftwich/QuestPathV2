@@ -5,12 +5,8 @@ import java.util.List;
 
 import blackboard.data.content.Content;
 import blackboard.data.content.avlrule.AvailabilityRule;
-import blackboard.data.course.Course;
-import blackboard.data.course.CourseManager;
-import blackboard.data.course.CourseManagerFactory;
 import blackboard.data.gradebook.Lineitem;
 import blackboard.data.navigation.CourseToc;
-import blackboard.data.user.User;
 import blackboard.persist.Id;
 import blackboard.persist.PersistenceException;
 import blackboard.persist.content.ContentDbLoader;
@@ -108,9 +104,12 @@ public class Processor {
 				}
 			}
 			for (Content c : children) {
-				if (c.getTitle().equalsIgnoreCase("test")|| c.getTitle().equalsIgnoreCase("test.txt")) {
+				if (c.getTitle().equalsIgnoreCase("QuestPath")) {
 					qLayout = c.getBody().getText();
 				}
+			}
+			if (qLayout.isEmpty()) {
+				qLayout = "null";
 			}
 
 			//Load grades for gradable Lineitems

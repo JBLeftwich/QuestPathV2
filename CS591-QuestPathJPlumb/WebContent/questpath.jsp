@@ -58,7 +58,7 @@
 		for (QuestPathItem qpI : qp.getQuestPathItems()) {
 			QPAttributes qpAtt = new QPAttributes(qpI);
 %>
-			<div id="<%=j + "-" + qpI.getName().replace(" ", "_")%>" class="questItem <%=qpAtt.getStatusClassName() %>"
+			<div id="<%=j + "-" + qpI.getName().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_")%>" class="questItem <%=qpAtt.getStatusClassName() %>"
 			title="<%=qpAtt.getTitle()%>" 
 			<% if (!qpI.isLocked()) { %>
 			ondblclick="openAssignment('execute/uploadAssignment?content_id=<%=qpI.getContentId().getExternalString()%>&course_id=<%=ctx.getCourseId().toExternalString()%>&assign_group_id=&mode=view');"
@@ -73,9 +73,12 @@ for (QuestPath quest : proc.qPaths) {
 	for (QuestPathItem qItem : quest.getQuestPathItems()) {
 		qItem.setContentId(null);
 		qItem.setName(qItem.getName().replace(" ", "_"));
+		qItem.setName(qItem.getName().replace(".", "_"));
+		qItem.setName(qItem.getName().replace("(", "_"));
+		qItem.setName(qItem.getName().replace(")", "_"));
 		List<String> cc = new ArrayList<String>();
 		for (String s : qItem.getChildContent()) {
-			cc.add(s.replace(" ", "_"));
+			cc.add(s.replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
 		}
 		qItem.setChildContent(cc);
 		List<String> pc = new ArrayList<String>();

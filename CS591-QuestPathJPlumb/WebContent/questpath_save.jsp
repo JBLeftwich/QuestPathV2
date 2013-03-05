@@ -16,6 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+<%@page import="blackboard.data.content.CourseDocument"%>
 <%@page import="blackboard.persist.Id"%>
 <%@page import="blackboard.data.course.Course"%>
 <%@page import="blackboard.platform.BbServiceManager"%>
@@ -33,7 +34,7 @@
 <bbNG:includedPage ctxId="ctx">
 <%              
 			BbPersistenceManager bbPm = BbServiceManager.getPersistenceService().getDbPersistenceManager();			
-			Id courseId = bbPm.generateId(Course.DATA_TYPE,request.getParameter("course_id"));  
+			Id courseId = bbPm.generateId(Course.DATA_TYPE,request.getParameter("course_id"));
 			String testVar = request.getParameter("testVar");
 			CourseTocDbLoader cTocLoader = CourseTocDbLoader.Default.getInstance();
 			ContentDbLoader cntDbLoader = ContentDbLoader.Default.getInstance();
@@ -44,15 +45,28 @@
 					children.addAll(cntDbLoader.loadChildren(t.getContentId(), false, null));
 				}
 			}
+			boolean contentExists = false;
 			for (Content c : children) {
-				if (c.getTitle().equalsIgnoreCase("test") || c.getTitle().equalsIgnoreCase("test.txt")) {
+				if (c.getTitle().equalsIgnoreCase("QuestPath")) {
 					Content courseWork = cntDbLoader.loadById(c.getId());;
 					FormattedText ft = new FormattedText(testVar, FormattedText.Type.PLAIN_TEXT);
 					courseWork.setBody(ft);
 					ContentDbPersister contentPersister =  ContentDbPersister.Default.getInstance(); 
        			   	contentPersister.persist(courseWork);
+       			   	contentExists = true;
 				}
 			}
+// 			if (!contentExists) {
+// 				Content courseDoc = new Content();
+// 				courseDoc.setTitle("QuestPath2");
+// 				String strMainData = request.getParameter("testVar");
+// 				FormattedText text = new FormattedText(strMainData,FormattedText.Type.PLAIN_TEXT);
+// 				courseDoc.setBody( text );
+// 				courseDoc.setCourseId(courseId);
+// 				courseDoc.setIsAvailable(false);
+// 				courseDoc.setIsTracked(false);
+// 				courseDoc.setIsDescribed(false);
+// 			}
 			
 %>
 <body>
