@@ -86,9 +86,8 @@
 <div class="legend">
 	<h5>LEGEND</h5>
 	<div class="legendColor passed">Passed</div>
-	<div class="legendColor failed">Attempted</div>
+	<div class="legendColor unlockedLegend">Unlocked</div>
 	<div class="legendColor locked">Locked</div>
-	<div class="legendColor unlocked">Unlocked</div>
 </div>
 <div class="saveButton">
 <!-- <button type="button" onclick="setLocation();">Confirm Layout</button> -->

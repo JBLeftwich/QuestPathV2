@@ -1,37 +1,19 @@
 .mainDiv {
-	background-color:silver;
+	background-color: #E0E0E0;
 	position: relative;
 	height: 800px;
 	padding: 1.0m;
-}
-
-.passed {
-	background-color:green;
-}
-.failed {
-	background-color:red;
-}
-.locked {
-	background-color:blue;
-}
-.unlocked {
-	background-color:orange;
-}
-.questName {
-	background-color:black;
 }
 
 .questItem { 
 	border:0.1em dotted #d4e06b; 
 	opacity:0.8; 
 	filter:alpha(opacity=80); 
-/*   	width:10em; height:4em;    */
   	width:10%; 
   	height:5%;  
  	z-index:1;  
  	position:absolute;  
-/*  	position: relative; */
-	color:white;
+	color:black;
 	font-family:helvetica, sans;
  	padding-top:0.9em; 
 	font-size:0.9em;
@@ -39,6 +21,34 @@
 	border-radius: 2.0em;
 	
 /* 	background-color:white; */
+}
+
+.questName {
+	background-color:black;
+	color: white;
+}
+.passed {
+	background-color:#B6D7A8;
+}
+.failed {
+	background-color:#FFE599;
+	font-weight: bold;
+	-o-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
+	-webkit-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1); 
+	-moz-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
+	box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
+	
+}
+.unlocked {
+	background-color:#FFE599;
+	font-weight: bold;
+	-o-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
+	-webkit-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
+	-moz-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
+	box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
+}
+.locked {
+	background-color:#999999;
 }
 
 .legend {
@@ -69,4 +79,9 @@
 	font-size:0.9em;
 	text-align:center;
 }
+.unlockedLegend {
+	background-color:#FFE599;
+	font-weight: bold;
+}
+
 

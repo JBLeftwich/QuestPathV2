@@ -38,7 +38,7 @@
 				}
 
 				if (questDraggable) {
-					jsPlumb.draggable(jsPlumb.getSelector(".questItem"));
+					jsPlumb.draggable(jsPlumb.getSelector(".questItem"),{containment:"parent"});
 				}
 			}
 	};
