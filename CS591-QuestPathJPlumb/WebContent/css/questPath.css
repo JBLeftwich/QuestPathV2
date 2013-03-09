@@ -19,6 +19,9 @@
 	font-size:0.9em;
 	text-align:center;
 	border-radius: 2.0em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap:break-word
 	
 /* 	background-color:white; */
 }
@@ -73,7 +76,7 @@
 /*  	width:1em; height:1em;   */
 /*  	z-index:1;   */
  	position:relative;  
-	color:white;
+	color:black;
 	font-family:helvetica, sans;
 /*  	padding-top:0.9em;  */
 	font-size:0.9em;

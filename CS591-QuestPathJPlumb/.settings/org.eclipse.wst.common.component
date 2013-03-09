@@ -3,6 +3,7 @@
     <wb-module deploy-name="CS591-QuestPathJPlumb">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src-text"/>
         <property name="context-root" value="CS591-QuestPathJPlumb"/>
         <property name="java-output-path" value="/CS591-QuestPathJPlumb/build/classes"/>
     </wb-module>

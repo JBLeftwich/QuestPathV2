@@ -12,12 +12,6 @@
 		proc.QPDriver(ctx);
 		if (proc.isUserAnInstructor) {
 		String cssPath1 = PlugInUtil.getUri("dt", "questpathblock",	"css/questPath.css");
-		String jQuery = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.min.js");
-		String jQueryui = PlugInUtil.getUri("dt", "questpathblock", "js/jquery-ui.min.js");
-		String jsPlumb = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.jsPlumb-1.3.16-all-min.js");
-		String jsTouch = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.ui.touch-punch.min.js");
-		String questPath = PlugInUtil.getUri("dt", "questpathblock","js/questPath.js");
-		String json2 = PlugInUtil.getUri("dt", "questpathblock","js/json2.js");
 %>
 <bbNG:cssFile href="<%=cssPath1%>" />
 <bbNG:pageHeader>
@@ -65,6 +59,7 @@
 	questString = proc.qpUtil.toJson(proc.qPaths);%>
 	var quests = <%=questString%>;
 	var questLayout = <%=proc.qLayout%>;
+	var questTier = <%=proc.questTier%>;
 	var questsLoaded = true;
 	var questDraggable = true;
 </script>

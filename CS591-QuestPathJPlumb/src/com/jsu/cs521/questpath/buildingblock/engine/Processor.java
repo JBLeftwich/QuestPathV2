@@ -3,6 +3,8 @@ package com.jsu.cs521.questpath.buildingblock.engine;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+
 import blackboard.data.content.Content;
 import blackboard.data.content.avlrule.AvailabilityRule;
 import blackboard.data.gradebook.Lineitem;
@@ -17,6 +19,7 @@ import blackboard.persist.gradebook.impl.OutcomeDefinitionDbLoader;
 import blackboard.persist.navigation.CourseTocDbLoader;
 import blackboard.platform.context.Context;
 
+import com.jsu.cs521.questpath.buildingblock.object.GraphTier;
 import com.jsu.cs521.questpath.buildingblock.object.QuestPath;
 import com.jsu.cs521.questpath.buildingblock.object.QuestPathItem;
 import com.jsu.cs521.questpath.buildingblock.object.QuestRule;
@@ -27,8 +30,10 @@ public class Processor {
 	private int i = 1;
 	public boolean isUserAnInstructor = false;
 	public String qLayout = "";
+	public String questTier = "";
 	public List<QuestPath> qPaths = new ArrayList<QuestPath>();
 	public QuestPathUtil qpUtil = new QuestPathUtil();
+	List<List<GraphTier>> allTiers = new ArrayList<List<GraphTier>>();
 /**
  * This method builds a QuestPath for each initial Quest Path Item
  * It then loops through the remaining Quest Path Items to apply them
@@ -78,6 +83,50 @@ public class Processor {
 			prevSize = tempListA.size();
 		}
 		return paths;
+	}
+	
+	public List<GraphTier>  buildGraphTier (List<QuestPathItem> items) {
+		List<GraphTier> graphTier = new ArrayList<GraphTier>();
+		int tier = 0;
+		boolean settingTier = true;
+		List<String> tierFound = new ArrayList<String>();
+		GraphTier tier1 = new GraphTier();
+		for (QuestPathItem item : items) {
+			if (item.isFirstQuestItem()) {
+				tier1.getTier().add(item.getName());
+				tierFound.add(item.getName());
+			}
+		}
+		graphTier.add(tier1);
+		while (settingTier) {
+			tier++;
+			GraphTier nextTier = new GraphTier();
+			for (QuestPathItem item : items) {
+				for (String parent : item.getParentContent()) {
+					if (graphTier.get(tier - 1).getTier().contains(parent) && !graphTier.get(tier - 1).getTier().contains(item.getName())) {
+						nextTier.getTier().add(item.getName());
+						tierFound.add(item.getName());
+						break;
+					}
+				}
+			}
+			if (nextTier.getTier().size() == 0) {
+				settingTier = false;
+			}
+			else {
+			graphTier.add(nextTier);
+			}
+		}
+		GraphTier lastTier = new GraphTier();
+		for (QuestPathItem item : items) {
+			if (!tierFound.contains(item.getName())) {
+				lastTier.getTier().add(item.getName());
+			}
+		}
+		if (lastTier.getTier().size() > 0) {
+			graphTier.add(lastTier);
+		}
+		return graphTier;
 	}
 	
 	public void QPDriver (Context ctx) throws PersistenceException {
@@ -137,15 +186,21 @@ public class Processor {
 			//if (!isUserAnInstructor) {
 			for (QuestPath quest : qPaths) {
 				quest = qpUtil.setQuest(quest);
+				List<GraphTier> tiers = buildGraphTier(quest.getQuestPathItems());
+				allTiers.add(tiers);
+			}
+			if (allTiers.size() > 0) {
+				JSONArray jA = new JSONArray(allTiers);
+				questTier = (jA.toString().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
+			}
+			else {
+				questTier = "null";
 			}
 
 		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw e;
 		}
-
-
-
 		
 	}
 }

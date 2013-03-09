@@ -48,13 +48,8 @@
 function moveItems() {
 	if (questLayout != null) {
 		var initWidth = questLayout.width;
-//		var initHeight = questLayout.height;
 		var currentWidth = document.getElementById('questpathBlockContainer').offsetWidth;
 		var widthRatio = currentWidth/initWidth;
-//		alert(currentWidth + ":" + initWidth + ":" + widthRatio);
-//		var topX = [113, 176, 373, 214, 206, 333, 198, 375];
-//		var leftX =  [293, 223, 310, 95, 485, 466, 788, 594 ];
-//		var k = 0;
 		try {
 			for (var i = 0; i < questLayout.qItemLayout.length; i++) {
 				try {
@@ -64,6 +59,8 @@ function moveItems() {
 				} catch(exception) {continue;}
 			}
 		} catch(exception) {}
+	} else {
+		initLayout();
 	}
 };
 
@@ -114,4 +111,26 @@ function setLocation() {
 }
 
 window.onresize=function(){moveItems(); jsPlumbDemo.init();};
+
+function initLayout() {
+	init_height = document.getElementById('questpathBlockContainer').offsetHeight;
+	init_width = document.getElementById('questpathBlockContainer').offsetWidth;
+	pathWidth = init_width/questTier.length;
+	for (var i = 0; i < questTier.length; i++) {
+		var x = document.getElementById("QP" + i);
+		x.style.left = pathWidth * i + "px";
+		x.style.top = 40 + "px";  //TODO change to calculate 1/20 of height
+		for (var j = 0; j < questTier[i].length; j++) {
+			tierWidth = (pathWidth/questTier[i][j].tier.length);
+			tierWidthCenter = tierWidth/2;
+			for (var k = 0; k < questTier[i][j].tier.length; k++) {
+				var x = document.getElementById(i + "-" + questTier[i][j].tier[k]);
+				x.style.left = pathWidth * i  + (tierWidth * (k +1)) - tierWidthCenter  - (init_width/20) + "px";
+				x.style.top =  init_height/questTier[i].length * j + "px";
+				//alert(x.style.left + ":" + x.style.top);
+			}
+		}
+	}
+}
+
 //jsPlumb.bind("ready", function() {moveItems(); jsPlumbDemo.init();});

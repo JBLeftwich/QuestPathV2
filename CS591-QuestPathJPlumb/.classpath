@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/Fall_Semester2012/CS521/Blackboard JARS/bb-platform.jar"/>
 	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/Fall_Semester2012/CS521/Blackboard JARS/bb-taglibs.jar"/>
 	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/Fall_Semester2012/CS521/Blackboard JARS/servlet-api.jar"/>
+	<classpathentry kind="src" path="src-text"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -31,11 +31,6 @@
 	<!-- to allow access to the session variables -->
 	<%
 			String cssPath1 = PlugInUtil.getUri("dt", "questpathblock",	"css/questPath.css");
-			String jQuery = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.min.js");
-			String jQueryui = PlugInUtil.getUri("dt", "questpathblock", "js/jquery-ui.min.js");
-			String jsPlumb = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.jsPlumb-1.3.16-all-min.js");
-			String jsTouch = PlugInUtil.getUri("dt", "questpathblock", "js/jquery.ui.touch-punch.min.js");
-			String questPath = PlugInUtil.getUri("dt", "questpathblock","js/questPath.js");
 			Processor proc = new Processor();
 			proc.QPDriver(ctx);
 	%>
@@ -91,6 +86,7 @@ for (QuestPath quest : proc.qPaths) {
 questString = proc.qpUtil.toJson(proc.qPaths);%>
 var quests = <%=questString%>;
 var questLayout = <%=proc.qLayout%>;
+var questTier = <%=proc.questTier%>;
 var questsLoaded = true;
 var questDraggable = false;
 </script>
