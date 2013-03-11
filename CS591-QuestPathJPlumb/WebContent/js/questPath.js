@@ -11,7 +11,7 @@
 					DragOptions : { cursor: "pointer", zIndex:2000 },
 					PaintStyle : { strokeStyle:color, lineWidth:3 },
 					EndpointStyle : { radius:3, fillStyle:color },
-					HoverPaintStyle : {strokeStyle:"#ec9f2e" },
+					HoverPaintStyle : {strokeStyle:"black" },
 					EndpointHoverStyle : {fillStyle:"#ec9f2e" },			
 					Anchors :  [ "AutoDefault", "AutoDefault" ]
 				});
@@ -28,10 +28,10 @@
 							if ((quests[i].questPathItems[j].passed && quests[i].questPathItems[j].unLocked) || 
 									(!quests[i].questPathItems[j].gradable && quests[i].questPathItems[j].unLocked)) {
 								jsPlumb.connect({source:i + '-' + quests[i].questPathItems[j].name,  
-									target:i + "-" + quests[i].questPathItems[j].childContent[k], paintStyle:{lineWidth:3, strokeStyle:"#25f300"}, overlays:overlays});
+									target:i + "-" + quests[i].questPathItems[j].childContent[k], overlays:overlays});
 							} else {
 								jsPlumb.connect({source:i + '-' + quests[i].questPathItems[j].name,  
-									target:i + "-" + quests[i].questPathItems[j].childContent[k], paintStyle:{lineWidth:3, strokeStyle:"#f30e00"}, overlays:overlays});
+									target:i + "-" + quests[i].questPathItems[j].childContent[k], overlays:overlays});
 							}
 						}
 					}
