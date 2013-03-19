@@ -16,6 +16,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+<%@page import="blackboard.persist.PersistenceException"%>
+<%@page import="blackboard.data.ValidationException"%>
 <%@page import="blackboard.data.content.CourseDocument"%>
 <%@page import="blackboard.persist.Id"%>
 <%@page import="blackboard.data.course.Course"%>
@@ -33,6 +35,7 @@
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
 <bbNG:includedPage ctxId="ctx">
 <%              
+			String errorMsg = "";
 			BbPersistenceManager bbPm = BbServiceManager.getPersistenceService().getDbPersistenceManager();			
 			Id courseId = bbPm.generateId(Course.DATA_TYPE,request.getParameter("course_id"));
 			String testVar = request.getParameter("testVar");
@@ -54,23 +57,45 @@
 					ContentDbPersister contentPersister =  ContentDbPersister.Default.getInstance(); 
        			   	contentPersister.persist(courseWork);
        			   	contentExists = true;
+       			   	break;
 				}
 			}
-// 			if (!contentExists) {
-// 				Content courseDoc = new Content();
-// 				courseDoc.setTitle("QuestPath2");
-// 				String strMainData = request.getParameter("testVar");
-// 				FormattedText text = new FormattedText(strMainData,FormattedText.Type.PLAIN_TEXT);
-// 				courseDoc.setBody( text );
-// 				courseDoc.setCourseId(courseId);
-// 				courseDoc.setIsAvailable(false);
-// 				courseDoc.setIsTracked(false);
-// 				courseDoc.setIsDescribed(false);
-// 			}
+			Content courseDoc = new Content();
+			try {
+ 			if (!contentExists) {
+ 				CourseToc toc = blackboard.persist.navigation.CourseTocDbLoader.Default.getInstance().loadByCourseIdAndLabel(courseId, "COURSE_DEFAULT.Content.CONTENT_LINK.label");
+ 				courseDoc.setTitle("QuestPath");
+ 				courseDoc.setCourseId(courseId);
+ 				String strMainData = request.getParameter("testVar");
+ 				FormattedText text = new FormattedText(strMainData,FormattedText.Type.PLAIN_TEXT);
+ 				courseDoc.setParentId(toc.getContentId());
+ 				courseDoc.setBody( text );
+ 				courseDoc.setCourseId(courseId);
+ 				courseDoc.setIsAvailable(false);
+ 				courseDoc.setIsTracked(false);
+ 				courseDoc.setIsDescribed(false);
+ 				courseDoc.setLaunchInNewWindow(false);
+ 	            courseDoc.setAllowGuests(false);
+ 	            courseDoc.setAllowObservers(false);
+ 	            try {
+
+ 	                blackboard.persist.content.ContentDbPersister.Default.getInstance().persist(courseDoc);
+ 	            } catch (ValidationException ex) {
+ 	                 errorMsg = ex.getLocalizedMessage();
+ 	            } catch (PersistenceException ex) {
+ 	            	errorMsg = ex.getLocalizedMessage();
+ 	            }
+
+ 			}
+			}
+			catch (Exception e) {
+				errorMsg = e.getLocalizedMessage();
+			}
 			
 %>
 <body>
 <div id="questpathBlockContainer" class="mainDiv">
+<%=errorMsg %><%=courseDoc.getParentId() %><%=courseDoc.getCourseId() %>
 SAVED!!!
 </div>
 <script type="text/javascript">history.go(-2);</script>
