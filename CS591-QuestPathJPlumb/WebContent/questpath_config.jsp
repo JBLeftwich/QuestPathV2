@@ -12,8 +12,16 @@
 		proc.QPDriver(ctx);
 		if (proc.isUserAnInstructor) {
 		String cssPath1 = PlugInUtil.getUri("dt", "questpathblock",	"css/questPath.css");
+		String htcPath1 = PlugInUtil.getUri("dt", "questpathblock",	"htc/PIE.htc");
 %>
 <bbNG:cssFile href="<%=cssPath1%>" />
+<bbNG:cssBlock>
+<style>
+.questItem {
+	behavior: url(<%=htcPath1 %>);
+	}
+</style>
+</bbNG:cssBlock>
 <bbNG:pageHeader>
 <bbNG:pageTitleBar title="Questpath Configuration"></bbNG:pageTitleBar>
 </bbNG:pageHeader>

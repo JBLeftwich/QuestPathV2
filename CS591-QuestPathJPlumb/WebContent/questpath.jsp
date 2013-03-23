@@ -31,11 +31,19 @@
 	<!-- to allow access to the session variables -->
 	<%
 			String cssPath1 = PlugInUtil.getUri("dt", "questpathblock",	"css/questPath.css");
+			String htcPath1 = PlugInUtil.getUri("dt", "questpathblock",	"htc/PIE.htc");
 			Processor proc = new Processor();
 			proc.QPDriver(ctx);
 	%>
 
 <bbNG:cssFile href="<%=cssPath1%>"/>
+<bbNG:cssBlock>
+<style>
+.questItem {
+	behavior: url(<%=htcPath1 %>);
+	}
+</style>
+</bbNG:cssBlock>
 <script type="text/javascript">
 <jsp:include page="js/jquery.min.js" />
 <jsp:include page="js/jquery.jsPlumb-1.3.16-all-min.js" />
