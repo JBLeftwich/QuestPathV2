@@ -108,7 +108,7 @@
 </div>
 	<bbNG:dataCollection>
 		<bbNG:step title="QuestPath Configuration 1.1" >
-			<input type="text" id="testVar" name="testVar" value='<%=proc.qLayout%>' />
+			<input type="hidden" id="testVar" name="testVar" value='<%=proc.qLayout%>' />
 			<input type="hidden" name="course_id" value="<%=request.getParameter("course_id")%>" />
 		</bbNG:step>
 		<bbNG:stepSubmit>
