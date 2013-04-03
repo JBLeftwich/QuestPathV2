@@ -148,7 +148,7 @@ public class QuestPathItem {
 	public String getPercentFormatted() {
 		return nf.format(this.getPercentageEarned());
 	}
-	
+
 	@Override
 	public String toString() {
 		return "QuestPathItem [contenetId=" + contentId + ", poinstPossible="

@@ -56,18 +56,23 @@
 <div id="questpathBlockContainer" class="mainDiv">
 <%
 	int j = 0;
+	List<String> procQI = new ArrayList<String>();
 	for (QuestPath qp : proc.qPaths) { %>
 		<div id="<%="QP" + j%>" class="questItem questName"><%=qp.getQuestName() %></div>
 <%
 		for (QuestPathItem qpI : qp.getQuestPathItems()) {
+			if (!procQI.contains(qpI.getName())) {
 			QPAttributes qpAtt = new QPAttributes(qpI);
 %>
-			<div id="<%=j + "-" + qpI.getName().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_")%>" class="questItem <%=qpAtt.getStatusClassName() %>"
+			<div id="<%=qpI.getName().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_")%>" class="questItem <%=qpAtt.getStatusClassName() %>"
 			title="<%=qpAtt.getTitle()%>" 
 			<% if (!qpI.isLocked()) { %>
 			ondblclick="openAssignment('execute/uploadAssignment?content_id=<%=qpI.getContentId().getExternalString()%>&course_id=<%=ctx.getCourseId().toExternalString()%>&assign_group_id=&mode=view');"
 			<%} %>><%=qpI.getName()%></div>
-		<%}
+		<%
+			procQI.add(qpI.getName());
+			}
+		}
 		j++;
 	}
 %>

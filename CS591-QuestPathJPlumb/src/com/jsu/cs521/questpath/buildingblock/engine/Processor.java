@@ -182,7 +182,29 @@ public class Processor {
 			itemList = qpUtil.setGradableQuestPathItemStatus(itemList,questRules);
 			itemList = qpUtil.setLockOrUnlocked(itemList, questRules);
 			qPaths = this.buildQuests(itemList);
-
+			
+//			for (QuestPath questPath1 : qPaths) {
+//				for (QuestPath questPath2: qPaths) {
+//					if (!questPath1.getQuestName().equals(questPath2.getQuestName())) {
+//						for (QuestPathItem item1 :questPath1.getQuestPathItems()) {
+//							if (!item1.isDuplicate()) {
+//								for (QuestPathItem item2 : questPath2.getQuestPathItems()) 
+//								{	
+//									if (item1.getName().equals(item2.getName())) {
+//										debugString += item2.getName() + " ! " ;
+//										item2.setDuplicate(true);
+//										//item1.getChildContent().addAll(item2.getChildContent());
+//										//item1.getParentContent().addAll(item2.getParentContent());
+//										//TODO set passed,locked,unlocked,attempted
+//									}
+//								}	
+//							}
+//						}
+//						
+//					}
+//				}
+//			}
+			
 			//if (!isUserAnInstructor) {
 			for (QuestPath quest : qPaths) {
 				quest = qpUtil.setQuest(quest);

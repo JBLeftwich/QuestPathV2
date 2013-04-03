@@ -23,21 +23,34 @@
 
 				overlays = [[ "Arrow", { location:0.5 }, arrowCommon ]];
 
+//				for (var i = 0; i < quests.length; i++) {
+//					for (var j = 0; j < quests[i].questPathItems.length; j++) {
+//						for (var k = 0; k < quests[i].questPathItems[j].childContent.length; k++) {
+//							if ((quests[i].questPathItems[j].passed && quests[i].questPathItems[j].unLocked) || 
+//									(!quests[i].questPathItems[j].gradable && quests[i].questPathItems[j].unLocked)) {
+//								jsPlumb.connect({source:i + '-' + quests[i].questPathItems[j].name,  
+//									target:i + "-" + quests[i].questPathItems[j].childContent[k], overlays:overlays});
+//							} else {
+//								jsPlumb.connect({source:i + '-' + quests[i].questPathItems[j].name,  
+//									target:i + "-" + quests[i].questPathItems[j].childContent[k], overlays:overlays});
+//							}
+//						}
+//					}
+//				}
+
+				var procQuests = new Array();
 				for (var i = 0; i < quests.length; i++) {
 					for (var j = 0; j < quests[i].questPathItems.length; j++) {
-						for (var k = 0; k < quests[i].questPathItems[j].childContent.length; k++) {
-							if ((quests[i].questPathItems[j].passed && quests[i].questPathItems[j].unLocked) || 
-									(!quests[i].questPathItems[j].gradable && quests[i].questPathItems[j].unLocked)) {
-								jsPlumb.connect({source:i + '-' + quests[i].questPathItems[j].name,  
-									target:i + "-" + quests[i].questPathItems[j].childContent[k], overlays:overlays});
-							} else {
-								jsPlumb.connect({source:i + '-' + quests[i].questPathItems[j].name,  
-									target:i + "-" + quests[i].questPathItems[j].childContent[k], overlays:overlays});
+						if (jQueryAlias.inArray(quests[i].questPathItems[j].name, procQuests) < 0) {
+							for (var k = 0; k < quests[i].questPathItems[j].childContent.length; k++) {
+								jsPlumb.connect({source:quests[i].questPathItems[j].name,  
+									target:quests[i].questPathItems[j].childContent[k], overlays:overlays});
 							}
 						}
+						procQuests.push(quests[i].questPathItems[j].name);
 					}
 				}
-
+				
 				if (questDraggable) {
 					jsPlumb.draggable(jsPlumb.getSelector(".questItem"),{containment:"parent"});
 				}
@@ -53,13 +66,11 @@ function moveItems() {
 		var widthRatio = currentWidth/initWidth;
 		try {
 			for (var i = 0; i < questLayout.qItemLayout.length; i++) {
-				try {
-					var x = document.getElementById(questLayout.qItemLayout[i].name);
-					x.style.top = (parseInt(questLayout.qItemLayout[i].top) * 1) + "px";
-					x.style.left = (parseInt(questLayout.qItemLayout[i].left) * widthRatio) + "px";
-				} catch(exception) {continue;}
+				var x = document.getElementById(questLayout.qItemLayout[i].name);
+				x.style.top = (parseInt(questLayout.qItemLayout[i].top) * 1) + "px";
+				x.style.left = (parseInt(questLayout.qItemLayout[i].left) * widthRatio) + "px";
 			}
-		} catch(exception) {}
+		} catch(exception) {initLayout();}//default to init layout if unable to build layout
 	} else {
 		initLayout();
 	}
@@ -100,9 +111,11 @@ function setLocation() {
 		k++;
 		for (var j = 0; j < quests[i].questPathItems.length; j++) {
 			var qItem = new Object();
-			qItem.name = i + '-' + quests[i].questPathItems[j].name;
-			qItem.top = document.getElementById(i + '-' + quests[i].questPathItems[j].name).style.top;
-			qItem.left = document.getElementById(i + '-' + quests[i].questPathItems[j].name).style.left;
+			qItem.name = quests[i].questPathItems[j].name;
+			//qItem.top = document.getElementById(i + '-' + quests[i].questPathItems[j].name).style.top;
+			//qItem.left = document.getElementById(i + '-' + quests[i].questPathItems[j].name).style.left;
+			qItem.top = document.getElementById(quests[i].questPathItems[j].name).style.top;
+			qItem.left = document.getElementById(quests[i].questPathItems[j].name).style.left;
 			qLayout.qItemLayout[k] = qItem;
 			k++;
 		}
@@ -125,7 +138,8 @@ function initLayout() {
 			tierWidth = (pathWidth/questTier[i][j].tier.length);
 			tierWidthCenter = tierWidth/2;
 			for (var k = 0; k < questTier[i][j].tier.length; k++) {
-				var x = document.getElementById(i + "-" + questTier[i][j].tier[k]);
+	//			var x = document.getElementById(i + "-" + questTier[i][j].tier[k]);
+				var x = document.getElementById(questTier[i][j].tier[k]);
 				x.style.left = pathWidth * i  + (tierWidth * (k +1)) - tierWidthCenter  - (init_width/20) + "px";
 				x.style.top =  init_height/questTier[i].length * j + "px";
 				//alert(x.style.left + ":" + x.style.top);
