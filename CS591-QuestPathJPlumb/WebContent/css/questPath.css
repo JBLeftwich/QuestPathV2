@@ -34,7 +34,7 @@
 }
 .failed {
 	background-color:#FFE599;
-	font-weight: bold;
+	font-weight: bolder;
 	-o-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
 	-webkit-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1); 
 	-moz-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
@@ -42,7 +42,7 @@
 }
 .unlocked {
 	background-color:#FFE599;
-	font-weight: bold;
+	font-weight: bolder;
 	-o-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
 	-webkit-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);
 	-moz-box-shadow: 19px 18px 20px rgba(0, 14, 0, 1);

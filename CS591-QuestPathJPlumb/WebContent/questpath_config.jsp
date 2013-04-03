@@ -76,10 +76,10 @@
 <jsp:include page="js/jquery.min.js" />
 <jsp:include page="js/jquery.jsPlumb-1.3.16-all-min.js" />
 <jsp:include page="js/jquery.ui.touch-punch.min.js" />
+<jsp:include page="ScriptFile.jsp" />
 <jsp:include page="js/json2.js" />
 <jsp:include page="js/questPath.js" />
 </script>
-<jsp:include page="ScriptFile.jsp" />
 <%-- <bbNG:jsFile href="<%=jQuery%>"/> --%>
 <%-- <bbNG:jsFile href="<%=jQueryui%>"/> --%>
 <%-- <bbNG:jsFile href="<%=jsPlumb%>"/> --%>
