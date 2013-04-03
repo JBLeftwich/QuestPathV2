@@ -99,11 +99,6 @@ var questTier = <%=proc.questTier%>;
 var questsLoaded = true;
 var questDraggable = false;
 </script>
-<%-- <bbNG:jsFile href="<%=jQuery%>"/> --%>
-<%-- <bbNG:jsFile href="<%=jQueryui%>"/> --%>
-<%-- <bbNG:jsFile href="<%=jsPlumb%>"/> --%>
-<%-- <bbNG:jsFile href="<%=jsTouch%>"/> --%>
-<%-- <bbNG:jsFile href="<%=questPath%>"/> --%>
 <div class="legend"><h5>LEGEND</h5>
 <div class="legendColor passed">Passed</div>
 <div class="legendColor unlockedLegend">Unlocked</div>

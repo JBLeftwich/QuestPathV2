@@ -1,4 +1,21 @@
 <!DOCTYPE HTML>
+<!-- 
+	Gamegogy Quest Path 1.0
+    Copyright (C) 2012  David Thornton
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <%@page import="java.util.*"%>
 <%@page import="blackboard.platform.plugin.PlugInUtil"%>
 <%@page import="com.jsu.cs521.questpath.buildingblock.util.*"%>
@@ -80,12 +97,6 @@
 <jsp:include page="js/json2.js" />
 <jsp:include page="js/questPath.js" />
 </script>
-<%-- <bbNG:jsFile href="<%=jQuery%>"/> --%>
-<%-- <bbNG:jsFile href="<%=jQueryui%>"/> --%>
-<%-- <bbNG:jsFile href="<%=jsPlumb%>"/> --%>
-<%-- <bbNG:jsFile href="<%=jsTouch%>"/> --%>
-<%-- <bbNG:jsFile href="<%=json2%>"/> --%>
-<%-- <bbNG:jsFile href="<%=questPath%>"/> --%>
 <div class="legend">
 	<h5>LEGEND</h5>
 	<div class="legendColor passed">Passed</div>
@@ -93,7 +104,6 @@
 	<div class="legendColor locked">Locked</div>
 </div>
 <div class="saveButton">
-<!-- <button type="button" onclick="setLocation();">Confirm Layout</button> -->
 </div>
 </div>
 	<bbNG:dataCollection>
