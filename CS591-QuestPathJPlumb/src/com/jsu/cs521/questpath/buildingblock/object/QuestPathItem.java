@@ -4,8 +4,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import blackboard.persist.Id;
-
 /**
  * A QuestPathItem is any Course Content located that is a test, assignment, or item
  * that has adaptive rules attached or dependent on to the content being processed.
@@ -14,7 +12,7 @@ import blackboard.persist.Id;
  */
 public class QuestPathItem {
 	private DecimalFormat nf = new DecimalFormat("#0.00");
-	private Id contentId;
+	//private Id contentId;
 	private float pointsPossible;
 	private float pointsEarned;
 	private float percentageEarned;
@@ -30,10 +28,11 @@ public class QuestPathItem {
 	private boolean isGradable;
 	private String completeRule;
 	private String unlockRule;
+	private String extContentId;
 
 	public QuestPathItem() {
 		super();
-		this.contentId = null;
+//		this.contentId = null;
 		this.pointsPossible = 0.0f;
 		this.pointsEarned = 0.0f;
 		this.percentageEarned = 0.0f;
@@ -48,12 +47,12 @@ public class QuestPathItem {
 		this.unlockRule = "";
 		this.completeRule = "";
 	}
-	public Id getContentId() {
-		return contentId;
-	}
-	public void setContentId(Id contenetId) {
-		this.contentId = contenetId;
-	}
+//	public Id getContentId() {
+//		return contentId;
+//	}
+//	public void setContentId(Id contenetId) {
+//		this.contentId = contenetId;
+//	}
 	public float getPointsPossible() {
 		return pointsPossible;
 	}
@@ -148,17 +147,25 @@ public class QuestPathItem {
 	public String getPercentFormatted() {
 		return nf.format(this.getPercentageEarned());
 	}
-
+	public String getExtContentId() {
+		return extContentId;
+	}
+	public void setExtContentId(String extContentId) {
+		this.extContentId = extContentId;
+	}
+	
 	@Override
 	public String toString() {
-		return "QuestPathItem [contenetId=" + contentId + ", poinstPossible="
-				+ pointsPossible + ", pointsEarned=" + pointsEarned
-				+ ", percentageEarned=" + percentageEarned
-				+ ", firstQuestItem=" + firstQuestItem + ", lastQuestItem="
-				+ lastQuestItem + ", childContent=" + childContent
-				+ ", parentContent=" + parentContent + ", isLocked=" + isLocked
-				+ ", isPassed=" + isPassed + ", isAttempted=" + isAttempted
-				+ ", name=" + name + ", isGradable=" + isGradable + "]";
+		return "QuestPathItem [pointsPossible=" + pointsPossible
+				+ ", pointsEarned=" + pointsEarned + ", percentageEarned="
+				+ percentageEarned + ", firstQuestItem=" + firstQuestItem
+				+ ", lastQuestItem=" + lastQuestItem + ", childContent="
+				+ childContent + ", parentContent=" + parentContent
+				+ ", isLocked=" + isLocked + ", isPassed=" + isPassed
+				+ ", isAttempted=" + isAttempted + ", isUnLocked=" + isUnLocked
+				+ ", name=" + name + ", isGradable=" + isGradable
+				+ ", completeRule=" + completeRule + ", unlockRule="
+				+ unlockRule + ", extContentId=" + extContentId + "]";
 	}
 	
 	

@@ -49,18 +49,19 @@
 		List<String> procQI = new ArrayList<String>();
 		for (QuestPath qp : proc.qPaths) {
 	%>
-	<div id="<%="QP" + j%>" class="questItem questName"><%=qp.getQuestName()%></div>
+<%-- 	<div id="<%="QP" + j%>" class="questItem questName"><%=qp.getQuestName()%></div> --%>
 	<%
 			for (QuestPathItem qpI : qp.getQuestPathItems()) {
-				if (!procQI.contains(qpI.getName())) {
+				if (!procQI.contains(qpI.getExtContentId())) {
 				QPAttributes qpAtt = new QPAttributes(qpI);
+				//TODO use External Content ID
 	%>
-			<div id="<%=qpI.getName().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_") %>"
+			<div id="<%=qpI.getExtContentId() %>"
 				class="questItem <%=qpAtt.getStatusClassName()%>"
 				title="<%=qpAtt.getTitle()%>" <%if (!qpI.isLocked()) {%>
 			<%}%>><%=qpI.getName()%></div>
 	<%
-				procQI.add(qpI.getName());
+				procQI.add(qpI.getExtContentId());
 				}
 			}
 			j++;
@@ -68,24 +69,27 @@
 	%>
 <bbNG:jsBlock>
 <script type="text/javascript">
-	<%String questString = "";
-	for (QuestPath quest : proc.qPaths) {
-		for (QuestPathItem qItem : quest.getQuestPathItems()) {
-			qItem.setContentId(null);
-			qItem.setName(qItem.getName().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
-			List<String> cc = new ArrayList<String>();
-			for (String s : qItem.getChildContent()) {
-				cc.add(s.replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
-			}
-			qItem.setChildContent(cc);
-			List<String> pc = new ArrayList<String>();
-			for (String s : qItem.getParentContent()) {
-				pc.add(s.replace(" ", "_"));
-			}
-			qItem.setParentContent(pc);
-		}
-	}
-	questString = proc.qpUtil.toJson(proc.qPaths);%>
+	<%
+	//TODO remove  this logic may be obsolete now
+// 	for (QuestPath quest : proc.qPaths) {
+// 		for (QuestPathItem qItem : quest.getQuestPathItems()) {
+// 			//qItem.setContentId(null);
+// 			//TODO remove
+// 			qItem.setName(qItem.getName().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
+// 			List<String> cc = new ArrayList<String>();
+// 			for (String s : qItem.getChildContent()) {
+// 				//TODO remove
+// 				cc.add(s.replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
+// 			}
+// 			qItem.setChildContent(cc);
+// 			List<String> pc = new ArrayList<String>();
+// 			for (String s : qItem.getParentContent()) {
+// 				pc.add(s.replace(" ", "_"));
+// 			}
+// 			qItem.setParentContent(pc);
+// 		}
+// 	}
+	String questString = proc.qpUtil.toJson(proc.qPaths);%>
 	var quests = <%=questString%>;
 	var questLayout = <%=proc.qLayout%>;
 	var questTier = <%=proc.questTier%>;
@@ -95,9 +99,9 @@
 </bbNG:jsBlock>
 <script type="text/javascript">
 <jsp:include page="js/jquery.min.js" />
+<jsp:include page="ScriptFile.jsp" />
 <jsp:include page="js/jquery.jsPlumb-1.3.16-all-min.js" />
 <jsp:include page="js/jquery.ui.touch-punch.min.js" />
-<jsp:include page="ScriptFile.jsp" />
 <jsp:include page="js/json2.js" />
 <jsp:include page="js/questPath.js" />
 </script>

@@ -13,7 +13,8 @@ import blackboard.persist.Id;
  */
 public class QuestRule {
 	private Id ruleId;
-	private Id contentId;
+//	private Id contentId;
+	private String extContentId;
 	private List<RuleCriteria> criterias = new ArrayList<RuleCriteria>();
 	
 	public Id getRuleId() {
@@ -22,23 +23,30 @@ public class QuestRule {
 	public void setRuleId(Id ruleId) {
 		this.ruleId = ruleId;
 	}
-	public Id getContentId() {
-		return contentId;
-	}
-	public void setContentId(Id contentId) {
-		this.contentId = contentId;
-	}
+//	public Id getContentId() {
+//		return contentId;
+//	}
+//	public void setContentId(Id contentId) {
+//		this.contentId = contentId;
+//	}
 	public List<RuleCriteria> getCriterias() {
 		return criterias;
 	}
 	public void setCriterias(List<RuleCriteria> criterias) {
 		this.criterias = criterias;
 	}
-	@Override
-	public String toString() {
-		return "QuestRule [ruleId=" + ruleId + ", contentId=" + contentId
-				+ ", criterias=" + criterias + "]";
+	public String getExtContentId() {
+		return extContentId;
 	}
+	public void setExtContentId(String extContentId) {
+		this.extContentId = extContentId;
+	}
+	
+//	@Override
+//	public String toString() {
+//		return "QuestRule [ruleId=" + ruleId + ", contentId=" + contentId
+//				+ ", criterias=" + criterias + "]";
+//	}
 	
 	
 	

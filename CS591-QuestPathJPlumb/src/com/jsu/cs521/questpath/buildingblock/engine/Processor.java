@@ -6,8 +6,11 @@ import java.util.List;
 import org.json.JSONArray;
 
 import blackboard.data.content.Content;
+import blackboard.data.content.avlrule.AvailabilityCriteria;
 import blackboard.data.content.avlrule.AvailabilityRule;
+import blackboard.data.content.avlrule.GradeRangeCriteria;
 import blackboard.data.gradebook.Lineitem;
+import blackboard.data.gradebook.impl.OutcomeDefinition;
 import blackboard.data.navigation.CourseToc;
 import blackboard.persist.Id;
 import blackboard.persist.PersistenceException;
@@ -34,6 +37,7 @@ public class Processor {
 	public List<QuestPath> qPaths = new ArrayList<QuestPath>();
 	public QuestPathUtil qpUtil = new QuestPathUtil();
 	List<List<GraphTier>> allTiers = new ArrayList<List<GraphTier>>();
+	public String debugString = "";
 /**
  * This method builds a QuestPath for each initial Quest Path Item
  * It then loops through the remaining Quest Path Items to apply them
@@ -51,7 +55,8 @@ public class Processor {
 			if (item.isFirstQuestItem()) {
 				QuestPath newPath = new QuestPath();
 				newPath.getQuestPathItems().add(item);
-				newPath.getQuestItemNames().add(item.getName());
+				//newPath.getQuestItemNames().add(item.getName());
+				newPath.getQuestItemNames().add(item.getExtContentId());
 				newPath.setQuestName("Quest Path - " + i);
 				tempListB.remove(item);
 				i++;
@@ -67,7 +72,8 @@ public class Processor {
 				for (QuestPath qp : paths) {
 					for (String parentItem : item.getParentContent()) {
 						if (qp.getQuestItemNames().contains(parentItem)) {
-							qp.getQuestItemNames().add(item.getName());
+							//qp.getQuestItemNames().add(item.getName());
+							qp.getQuestItemNames().add(item.getExtContentId());
 							qp.getQuestPathItems().add(item);
 							tempListB.remove(item);
 							break;
@@ -92,9 +98,12 @@ public class Processor {
 		List<String> tierFound = new ArrayList<String>();
 		GraphTier tier1 = new GraphTier();
 		for (QuestPathItem item : items) {
+			//TODO change to External Content ID
 			if (item.isFirstQuestItem()) {
-				tier1.getTier().add(item.getName());
-				tierFound.add(item.getName());
+//				tier1.getTier().add(item.getName());
+//				tierFound.add(item.getName());
+				tier1.getTier().add(item.getExtContentId());
+				tierFound.add(item.getExtContentId());
 			}
 		}
 		graphTier.add(tier1);
@@ -103,9 +112,14 @@ public class Processor {
 			GraphTier nextTier = new GraphTier();
 			for (QuestPathItem item : items) {
 				for (String parent : item.getParentContent()) {
-					if (graphTier.get(tier - 1).getTier().contains(parent) && !graphTier.get(tier - 1).getTier().contains(item.getName())) {
-						nextTier.getTier().add(item.getName());
-						tierFound.add(item.getName());
+					//TODO change to External Content ID					
+					//if (graphTier.get(tier - 1).getTier().contains(parent) && !graphTier.get(tier - 1).getTier().contains(item.getName())) {
+					if (graphTier.get(tier - 1).getTier().contains(parent) && !graphTier.get(tier - 1).getTier().contains(item.getExtContentId())) {
+						//TODO change to External Content ID
+						//nextTier.getTier().add(item.getName());
+						//tierFound.add(item.getName());
+						nextTier.getTier().add(item.getExtContentId());
+						tierFound.add(item.getExtContentId());
 						break;
 					}
 				}
@@ -119,8 +133,12 @@ public class Processor {
 		}
 		GraphTier lastTier = new GraphTier();
 		for (QuestPathItem item : items) {
-			if (!tierFound.contains(item.getName())) {
-				lastTier.getTier().add(item.getName());
+			//TODO change to External Content ID			
+			//if (!tierFound.contains(item.getName())) {
+			//		lastTier.getTier().add(item.getName());
+			//}
+			if (!tierFound.contains(item.getExtContentId())) {
+				lastTier.getTier().add(item.getExtContentId());
 			}
 		}
 		if (lastTier.getTier().size() > 0) {
@@ -175,14 +193,29 @@ public class Processor {
 			//Load ADAPTIVE RELEASE rules
 			List<AvailabilityRule> rules = avRuleLoader.loadByCourseId(courseID);
 			List<QuestRule> questRules = qpUtil.buildQuestRules(rules, avCriLoader, defLoad);
-
 			itemList = qpUtil.setParentChildList(itemList, questRules);
 			itemList = qpUtil.setInitialFinal(itemList);
 			itemList = qpUtil.removeNonAdaptiveReleaseContent(itemList);
 			itemList = qpUtil.setGradableQuestPathItemStatus(itemList,questRules);
 			itemList = qpUtil.setLockOrUnlocked(itemList, questRules);
 			qPaths = this.buildQuests(itemList);
-			
+
+//			for(AvailabilityRule rule : rules) {
+//				List<AvailabilityCriteria> criterias = avCriLoader.loadByRuleId(rule.getId());
+//				for (AvailabilityCriteria criteria : criterias) {
+//					if(criteria.getRuleType().equals(AvailabilityCriteria.RuleType.GRADE_RANGE)) {
+//						GradeRangeCriteria gcc = (GradeRangeCriteria) criteria;
+//						OutcomeDefinition definition = defLoad.loadById(gcc.getOutcomeDefinitionId());
+//						debugString += ",def1=" + definition.getTitle() + definition.getContentId();
+//					}
+//					if(criteria.getRuleType().equals(AvailabilityCriteria.RuleType.GRADE_RANGE_PERCENT)) {
+//						GradeRangeCriteria gcc = (GradeRangeCriteria) criteria;
+//						OutcomeDefinition definition = defLoad.loadById(gcc.getOutcomeDefinitionId());
+//						debugString += ",def2=" + definition.getTitle() + definition.getContentId();
+//					}
+//				}
+//			}
+//			
 //			for (QuestPath questPath1 : qPaths) {
 //				for (QuestPath questPath2: qPaths) {
 //					if (!questPath1.getQuestName().equals(questPath2.getQuestName())) {
@@ -212,8 +245,9 @@ public class Processor {
 				allTiers.add(tiers);
 			}
 			if (allTiers.size() > 0) {
-				JSONArray jA = new JSONArray(allTiers);
-				questTier = (jA.toString().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
+				//JSONArray jA = new JSONArray(allTiers);
+				//questTier = (jA.toString().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
+				questTier = new JSONArray(allTiers).toString();
 			}
 			else {
 				questTier = "null";

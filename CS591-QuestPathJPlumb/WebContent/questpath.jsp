@@ -44,13 +44,6 @@
 	}
 </style>
 </bbNG:cssBlock>
-<script type="text/javascript">
-<jsp:include page="js/jquery.min.js" />
-<jsp:include page="js/jquery.jsPlumb-1.3.16-all-min.js" />
-<jsp:include page="js/jquery.ui.touch-punch.min.js" />
-<jsp:include page="ScriptFile.jsp" />
-<jsp:include page="js/questPath.js" />
-</script>
 <%-- <jsp:include page="ScriptFile.jsp" /> --%>
 <body>
 <div id="questpathBlockContainer" class="mainDiv">
@@ -58,57 +51,70 @@
 	int j = 0;
 	List<String> procQI = new ArrayList<String>();
 	for (QuestPath qp : proc.qPaths) { %>
-		<div id="<%="QP" + j%>" class="questItem questName"><%=qp.getQuestName() %></div>
+<%-- 		<div id="<%="QP" + j%>" class="questItem questName"><%=qp.getQuestName() %></div> --%>
 <%
 		for (QuestPathItem qpI : qp.getQuestPathItems()) {
-			if (!procQI.contains(qpI.getName())) {
+			if (!procQI.contains(qpI.getExtContentId())) {
 			QPAttributes qpAtt = new QPAttributes(qpI);
+			//TODO use external content id			
 %>
-			<div id="<%=qpI.getName().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_")%>" class="questItem <%=qpAtt.getStatusClassName() %>"
+			<div id="<%=qpI.getExtContentId()%>" class="questItem <%=qpAtt.getStatusClassName() %>"
 			title="<%=qpAtt.getTitle()%>" 
 			<% if (!qpI.isLocked()) { %>
-			ondblclick="openAssignment('execute/uploadAssignment?content_id=<%=qpI.getContentId().getExternalString()%>&course_id=<%=ctx.getCourseId().toExternalString()%>&assign_group_id=&mode=view');"
+			ondblclick="openAssignment('execute/uploadAssignment?content_id=<%=qpI.getExtContentId()%>&course_id=<%=ctx.getCourseId().toExternalString()%>&assign_group_id=&mode=view');"
 			<%} %>><%=qpI.getName()%></div>
 		<%
-			procQI.add(qpI.getName());
+			procQI.add(qpI.getExtContentId());
 			}
 		}
 		j++;
 	}
 %>
+<bbNG:jsBlock>
 <script type="text/javascript">
-<%String questString = "";
-for (QuestPath quest : proc.qPaths) {
-	for (QuestPathItem qItem : quest.getQuestPathItems()) {
-		qItem.setContentId(null);
-		qItem.setName(qItem.getName().replace(" ", "_"));
-		qItem.setName(qItem.getName().replace(".", "_"));
-		qItem.setName(qItem.getName().replace("(", "_"));
-		qItem.setName(qItem.getName().replace(")", "_"));
-		List<String> cc = new ArrayList<String>();
-		for (String s : qItem.getChildContent()) {
-			cc.add(s.replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
-		}
-		qItem.setChildContent(cc);
-		List<String> pc = new ArrayList<String>();
-		for (String s : qItem.getParentContent()) {
-			pc.add(s.replace(" ", "_"));
-		}
-		qItem.setParentContent(pc);
-	}
-}
-questString = proc.qpUtil.toJson(proc.qPaths);%>
+//TODO obsolete with use of external id
+<%
+// for (QuestPath quest : proc.qPaths) {
+// 	for (QuestPathItem qItem : quest.getQuestPathItems()) {
+// 		//qItem.setContentId(null);
+// 		qItem.setName(qItem.getName().replace(" ", "_"));
+// 		qItem.setName(qItem.getName().replace(".", "_"));
+// 		qItem.setName(qItem.getName().replace("(", "_"));
+// 		qItem.setName(qItem.getName().replace(")", "_"));
+// 		List<String> cc = new ArrayList<String>();
+// 		for (String s : qItem.getChildContent()) {
+// 			cc.add(s.replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
+// 		}
+// 		qItem.setChildContent(cc);
+// 		List<String> pc = new ArrayList<String>();
+// 		for (String s : qItem.getParentContent()) {
+// 			pc.add(s.replace(" ", "_"));
+// 		}
+// 		qItem.setParentContent(pc);
+// 	}
+// }
+String questString = proc.qpUtil.toJson(proc.qPaths);%>
 var quests = <%=questString%>;
 var questLayout = <%=proc.qLayout%>;
 var questTier = <%=proc.questTier%>;
 var questsLoaded = true;
 var questDraggable = false;
 </script>
+</bbNG:jsBlock>
+<script type="text/javascript">
+<jsp:include page="js/jquery.min.js" />
+<jsp:include page="ScriptFile.jsp" />
+<jsp:include page="js/jquery.jsPlumb-1.3.16-all-min.js" />
+<jsp:include page="js/jquery.ui.touch-punch.min.js" />
+<jsp:include page="js/questPath.js" />
+</script>
+
 <div class="legend"><h5>LEGEND</h5>
 <div class="legendColor passed">Passed</div>
 <div class="legendColor unlockedLegend">Unlocked</div>
 <div class="legendColor locked">Locked</div>
 </div>
 </div>
+<%=proc.debugString %>
 </body>
 </bbNG:includedPage>
