@@ -38,7 +38,7 @@
 			String errorMsg = "";
 			BbPersistenceManager bbPm = BbServiceManager.getPersistenceService().getDbPersistenceManager();			
 			Id courseId = bbPm.generateId(Course.DATA_TYPE,request.getParameter("course_id"));
-			String testVar = request.getParameter("testVar");
+			String testVar = request.getParameter("questLayout");
 			CourseTocDbLoader cTocLoader = CourseTocDbLoader.Default.getInstance();
 			ContentDbLoader cntDbLoader = ContentDbLoader.Default.getInstance();
 			List<CourseToc> tList = cTocLoader.loadByCourseId(courseId);
@@ -66,7 +66,7 @@
  				CourseToc toc = blackboard.persist.navigation.CourseTocDbLoader.Default.getInstance().loadByCourseIdAndLabel(courseId, "COURSE_DEFAULT.Content.CONTENT_LINK.label");
  				courseDoc.setTitle("QuestPath");
  				courseDoc.setCourseId(courseId);
- 				String strMainData = request.getParameter("testVar");
+ 				String strMainData = request.getParameter("questLayout");
  				FormattedText text = new FormattedText(strMainData,FormattedText.Type.PLAIN_TEXT);
  				courseDoc.setParentId(toc.getContentId());
  				courseDoc.setBody( text );
@@ -95,8 +95,7 @@
 %>
 <body>
 <div id="questpathBlockContainer" class="mainDiv">
-<%=errorMsg %><%=courseDoc.getParentId() %><%=courseDoc.getCourseId() %>
-SAVED!!!
+<%=errorMsg %>
 </div>
 <script type="text/javascript">history.go(-2);</script>
 </body>

@@ -35,7 +35,6 @@
 			Processor proc = new Processor();
 			proc.QPDriver(ctx);
 	%>
-
 <bbNG:cssFile href="<%=cssPath1%>"/>
 <bbNG:cssBlock>
 <style>
@@ -50,13 +49,10 @@
 <%
 	int j = 0;
 	List<String> procQI = new ArrayList<String>();
-	for (QuestPath qp : proc.qPaths) { %>
-<%-- 		<div id="<%="QP" + j%>" class="questItem questName"><%=qp.getQuestName() %></div> --%>
-<%
+	for (QuestPath qp : proc.qPaths) { 
 		for (QuestPathItem qpI : qp.getQuestPathItems()) {
 			if (!procQI.contains(qpI.getExtContentId())) {
 			QPAttributes qpAtt = new QPAttributes(qpI);
-			//TODO use external content id			
 %>
 			<div id="<%=qpI.getExtContentId()%>" class="questItem <%=qpAtt.getStatusClassName() %>"
 			title="<%=qpAtt.getTitle()%>" 
@@ -72,27 +68,7 @@
 %>
 <bbNG:jsBlock>
 <script type="text/javascript">
-//TODO obsolete with use of external id
 <%
-// for (QuestPath quest : proc.qPaths) {
-// 	for (QuestPathItem qItem : quest.getQuestPathItems()) {
-// 		//qItem.setContentId(null);
-// 		qItem.setName(qItem.getName().replace(" ", "_"));
-// 		qItem.setName(qItem.getName().replace(".", "_"));
-// 		qItem.setName(qItem.getName().replace("(", "_"));
-// 		qItem.setName(qItem.getName().replace(")", "_"));
-// 		List<String> cc = new ArrayList<String>();
-// 		for (String s : qItem.getChildContent()) {
-// 			cc.add(s.replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
-// 		}
-// 		qItem.setChildContent(cc);
-// 		List<String> pc = new ArrayList<String>();
-// 		for (String s : qItem.getParentContent()) {
-// 			pc.add(s.replace(" ", "_"));
-// 		}
-// 		qItem.setParentContent(pc);
-// 	}
-// }
 String questString = proc.qpUtil.toJson(proc.qPaths);%>
 var quests = <%=questString%>;
 var questLayout = <%=proc.qLayout%>;
@@ -108,13 +84,11 @@ var questDraggable = false;
 <jsp:include page="js/jquery.ui.touch-punch.min.js" />
 <jsp:include page="js/questPath.js" />
 </script>
-
 <div class="legend"><h5>LEGEND</h5>
 <div class="legendColor passed">Passed</div>
 <div class="legendColor unlockedLegend">Unlocked</div>
 <div class="legendColor locked">Locked</div>
 </div>
 </div>
-<%=proc.debugString %>
 </body>
 </bbNG:includedPage>

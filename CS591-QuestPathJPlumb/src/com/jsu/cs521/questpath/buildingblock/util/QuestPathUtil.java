@@ -1,7 +1,9 @@
 package com.jsu.cs521.questpath.buildingblock.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 
@@ -30,6 +32,7 @@ import com.jsu.cs521.questpath.buildingblock.object.RuleCriteria;
  */
 public class QuestPathUtil {
 
+	Map<String, String> contentMap = new HashMap<String, String>();
 	/**
 	 * Remove any content found for the course that does not have a rule associated
 	 * @param allItems
@@ -88,15 +91,10 @@ public class QuestPathUtil {
 		for (QuestPathItem item : allItems) {
 			for (QuestRule rule : allRules) {
 				if (rule.getExtContentId().equals(item.getExtContentId())) {
-				//if (rule.getContentId().equals(item.getContentId())) {
 					for (RuleCriteria crit : rule.getCriterias()) {
 						item.getParentContent().add(crit.getParentContent());
 						for(QuestPathItem item2 : allItems) {
-							//TODO change to external content id							
-							//if(item2.getName().equals(crit.getParentContent())) {
 							if(item2.getExtContentId().equals(crit.getParentContent())) {
-								//TODO change to external content id
-								//item2.getChildContent().add(item.getName());
 								item2.getChildContent().add(item.getExtContentId());
 							}
 						}
@@ -109,13 +107,12 @@ public class QuestPathUtil {
 				StringBuilder sb = new StringBuilder();
 				for (String pc : item.getParentContent()) {
 					if (!subsequentRule) {
-						sb.append(" Item will be unlocked when the following Quest Path Items are completed: " + pc);
+						sb.append(" Item will be unlocked when the following Quest Path Items are completed: " + contentMap.get(pc));
 						subsequentRule = true;
 					} else {
-						sb.append("," + pc);
+						sb.append("," + contentMap.get(pc));
 					}
 				}
-				//sb.append(".");
 				item.setUnlockRule(sb.toString());
 			}
 		}
@@ -136,7 +133,6 @@ public class QuestPathUtil {
 		for (Content c : contentItems) {
 			QuestPathItem newQP = new QuestPathItem();
 			newQP.setName(c.getTitle());
-			//newQP.setContentId(c.getId());
 			newQP.setExtContentId(c.getId().getExternalString());
 			for(Lineitem li : lineitems) {
 				if (li.getName().equals(newQP.getName())) {
@@ -157,6 +153,7 @@ public class QuestPathUtil {
 				}
 			}
 			initialList.add(newQP);
+			contentMap.put(c.getId().getExternalString(), c.getTitle());
 		}
 		return initialList;
 	}
@@ -176,7 +173,6 @@ public class QuestPathUtil {
 			boolean load = false;
 			QuestRule questRule = new QuestRule();
 			List<AvailabilityCriteria> criterias = avCriLoader.loadByRuleId(rule.getId());
-			//questRule.setContentId(rule.getContentId());
 			questRule.setExtContentId(rule.getContentId().getExternalString());
 			questRule.setRuleId(rule.getId());
 			for (AvailabilityCriteria criteria : criterias) {
@@ -187,8 +183,6 @@ public class QuestPathUtil {
 					if(gcc.getMaxScore() != null ) {ruleCrit.setMaxScore(gcc.getMaxScore());}
 					if(gcc.getMinScore() != null ) {ruleCrit.setMinScore(gcc.getMinScore());}
 					OutcomeDefinition definition = defLoad.loadById(gcc.getOutcomeDefinitionId());
-					//TODO change to external content id
-					//ruleCrit.setParentContent(definition.getTitle());
 					if (definition.getContentId() != null) {
 						ruleCrit.setParentContent(definition.getContentId().getExternalString());
 						load = true;
@@ -201,8 +195,6 @@ public class QuestPathUtil {
 					if(gcc.getMaxScore() != null ) {ruleCrit.setMaxScore(gcc.getMaxScore());}
 					if(gcc.getMinScore() != null ) {ruleCrit.setMinScore(gcc.getMinScore());}
 					OutcomeDefinition definition = defLoad.loadById(gcc.getOutcomeDefinitionId());
-					//TODO change to external content id					
-					//ruleCrit.setParentContent(definition.getTitle());
 					if (definition.getContentId() != null) {
 						ruleCrit.setParentContent(definition.getContentId().getExternalString());
 						load = true;
@@ -244,8 +236,6 @@ public class QuestPathUtil {
 					for(QuestRule rule : rules) {
 						int i = 1;
 						for (RuleCriteria ruleC : rule.getCriterias()) {
-							//TODO change to use External Content ID
-							//if(ruleC.getParentContent().equals(item.getName())) {
 							if(ruleC.getParentContent().equals(item.getExtContentId())) {
 								if (ruleC.isGradePercent()) {
 									if (item.getPointsEarned() > 0 && item.getPercentageEarned() < ruleC.getMinScore()) {
@@ -306,12 +296,9 @@ public class QuestPathUtil {
 			boolean unlocked = false;
 			if (item.getParentContent().size() > 0) {
 				for(QuestRule rule : rules) {
-					//if (rule.getContentId().equals(item.getContentId())) {
 					if (rule.getExtContentId().equals(item.getExtContentId())) {
 						for (RuleCriteria ruleCrit : rule.getCriterias()) {
 							for (QuestPathItem item2 : items) {
-								//TODO change to external content ID
-								//if (ruleCrit.getParentContent().equals(item2.getName())) {
 								if (ruleCrit.getParentContent().equals(item2.getExtContentId())) {
 									if (item2.isPassed()) {
 										unlocked = true;
@@ -383,6 +370,4 @@ public class QuestPathUtil {
 			return e.getLocalizedMessage();
 		}
 	}
-
-
 }

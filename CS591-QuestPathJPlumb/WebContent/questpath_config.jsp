@@ -48,13 +48,9 @@
 		int j = 0;
 		List<String> procQI = new ArrayList<String>();
 		for (QuestPath qp : proc.qPaths) {
-	%>
-<%-- 	<div id="<%="QP" + j%>" class="questItem questName"><%=qp.getQuestName()%></div> --%>
-	<%
 			for (QuestPathItem qpI : qp.getQuestPathItems()) {
 				if (!procQI.contains(qpI.getExtContentId())) {
 				QPAttributes qpAtt = new QPAttributes(qpI);
-				//TODO use External Content ID
 	%>
 			<div id="<%=qpI.getExtContentId() %>"
 				class="questItem <%=qpAtt.getStatusClassName()%>"
@@ -70,25 +66,6 @@
 <bbNG:jsBlock>
 <script type="text/javascript">
 	<%
-	//TODO remove  this logic may be obsolete now
-// 	for (QuestPath quest : proc.qPaths) {
-// 		for (QuestPathItem qItem : quest.getQuestPathItems()) {
-// 			//qItem.setContentId(null);
-// 			//TODO remove
-// 			qItem.setName(qItem.getName().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
-// 			List<String> cc = new ArrayList<String>();
-// 			for (String s : qItem.getChildContent()) {
-// 				//TODO remove
-// 				cc.add(s.replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
-// 			}
-// 			qItem.setChildContent(cc);
-// 			List<String> pc = new ArrayList<String>();
-// 			for (String s : qItem.getParentContent()) {
-// 				pc.add(s.replace(" ", "_"));
-// 			}
-// 			qItem.setParentContent(pc);
-// 		}
-// 	}
 	String questString = proc.qpUtil.toJson(proc.qPaths);%>
 	var quests = <%=questString%>;
 	var questLayout = <%=proc.qLayout%>;
@@ -116,7 +93,7 @@
 </div>
 	<bbNG:dataCollection>
 		<bbNG:step title="QuestPath Configuration 1.1" >
-			<input type="hidden" id="testVar" name="testVar" value='<%=proc.qLayout%>' />
+			<input type="hidden" id="questLayout" name="questLayout" value='<%=proc.qLayout%>' />
 			<input type="hidden" name="course_id" value="<%=request.getParameter("course_id")%>" />
 		</bbNG:step>
 		<bbNG:stepSubmit>

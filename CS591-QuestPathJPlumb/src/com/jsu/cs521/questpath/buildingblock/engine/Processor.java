@@ -6,11 +6,8 @@ import java.util.List;
 import org.json.JSONArray;
 
 import blackboard.data.content.Content;
-import blackboard.data.content.avlrule.AvailabilityCriteria;
 import blackboard.data.content.avlrule.AvailabilityRule;
-import blackboard.data.content.avlrule.GradeRangeCriteria;
 import blackboard.data.gradebook.Lineitem;
-import blackboard.data.gradebook.impl.OutcomeDefinition;
 import blackboard.data.navigation.CourseToc;
 import blackboard.persist.Id;
 import blackboard.persist.PersistenceException;
@@ -55,7 +52,6 @@ public class Processor {
 			if (item.isFirstQuestItem()) {
 				QuestPath newPath = new QuestPath();
 				newPath.getQuestPathItems().add(item);
-				//newPath.getQuestItemNames().add(item.getName());
 				newPath.getQuestItemNames().add(item.getExtContentId());
 				newPath.setQuestName("Quest Path - " + i);
 				tempListB.remove(item);
@@ -72,7 +68,6 @@ public class Processor {
 				for (QuestPath qp : paths) {
 					for (String parentItem : item.getParentContent()) {
 						if (qp.getQuestItemNames().contains(parentItem)) {
-							//qp.getQuestItemNames().add(item.getName());
 							qp.getQuestItemNames().add(item.getExtContentId());
 							qp.getQuestPathItems().add(item);
 							tempListB.remove(item);
@@ -98,10 +93,7 @@ public class Processor {
 		List<String> tierFound = new ArrayList<String>();
 		GraphTier tier1 = new GraphTier();
 		for (QuestPathItem item : items) {
-			//TODO change to External Content ID
 			if (item.isFirstQuestItem()) {
-//				tier1.getTier().add(item.getName());
-//				tierFound.add(item.getName());
 				tier1.getTier().add(item.getExtContentId());
 				tierFound.add(item.getExtContentId());
 			}
@@ -112,12 +104,7 @@ public class Processor {
 			GraphTier nextTier = new GraphTier();
 			for (QuestPathItem item : items) {
 				for (String parent : item.getParentContent()) {
-					//TODO change to External Content ID					
-					//if (graphTier.get(tier - 1).getTier().contains(parent) && !graphTier.get(tier - 1).getTier().contains(item.getName())) {
 					if (graphTier.get(tier - 1).getTier().contains(parent) && !graphTier.get(tier - 1).getTier().contains(item.getExtContentId())) {
-						//TODO change to External Content ID
-						//nextTier.getTier().add(item.getName());
-						//tierFound.add(item.getName());
 						nextTier.getTier().add(item.getExtContentId());
 						tierFound.add(item.getExtContentId());
 						break;
@@ -133,10 +120,6 @@ public class Processor {
 		}
 		GraphTier lastTier = new GraphTier();
 		for (QuestPathItem item : items) {
-			//TODO change to External Content ID			
-			//if (!tierFound.contains(item.getName())) {
-			//		lastTier.getTier().add(item.getName());
-			//}
 			if (!tierFound.contains(item.getExtContentId())) {
 				lastTier.getTier().add(item.getExtContentId());
 			}
@@ -151,10 +134,6 @@ public class Processor {
 		try {
 			Id courseID = ctx.getCourseId();
 			String sessionUserRole = ctx.getCourseMembership().getRoleAsString();
-			//String sessionUserID = sessionUser.getId().toString();
-			//User sessionUser = ctx.getUser();
-			//Course course = cm1.getCourse(courseID);
-			//CourseManager cm1 = CourseManagerFactory.getInstance();
 			if (sessionUserRole.trim().toLowerCase().equals("instructor")) {
 				isUserAnInstructor = true;
 			}
@@ -200,53 +179,12 @@ public class Processor {
 			itemList = qpUtil.setLockOrUnlocked(itemList, questRules);
 			qPaths = this.buildQuests(itemList);
 
-//			for(AvailabilityRule rule : rules) {
-//				List<AvailabilityCriteria> criterias = avCriLoader.loadByRuleId(rule.getId());
-//				for (AvailabilityCriteria criteria : criterias) {
-//					if(criteria.getRuleType().equals(AvailabilityCriteria.RuleType.GRADE_RANGE)) {
-//						GradeRangeCriteria gcc = (GradeRangeCriteria) criteria;
-//						OutcomeDefinition definition = defLoad.loadById(gcc.getOutcomeDefinitionId());
-//						debugString += ",def1=" + definition.getTitle() + definition.getContentId();
-//					}
-//					if(criteria.getRuleType().equals(AvailabilityCriteria.RuleType.GRADE_RANGE_PERCENT)) {
-//						GradeRangeCriteria gcc = (GradeRangeCriteria) criteria;
-//						OutcomeDefinition definition = defLoad.loadById(gcc.getOutcomeDefinitionId());
-//						debugString += ",def2=" + definition.getTitle() + definition.getContentId();
-//					}
-//				}
-//			}
-//			
-//			for (QuestPath questPath1 : qPaths) {
-//				for (QuestPath questPath2: qPaths) {
-//					if (!questPath1.getQuestName().equals(questPath2.getQuestName())) {
-//						for (QuestPathItem item1 :questPath1.getQuestPathItems()) {
-//							if (!item1.isDuplicate()) {
-//								for (QuestPathItem item2 : questPath2.getQuestPathItems()) 
-//								{	
-//									if (item1.getName().equals(item2.getName())) {
-//										debugString += item2.getName() + " ! " ;
-//										item2.setDuplicate(true);
-//										//item1.getChildContent().addAll(item2.getChildContent());
-//										//item1.getParentContent().addAll(item2.getParentContent());
-//										//TODO set passed,locked,unlocked,attempted
-//									}
-//								}	
-//							}
-//						}
-//						
-//					}
-//				}
-//			}
-			
-			//if (!isUserAnInstructor) {
 			for (QuestPath quest : qPaths) {
 				quest = qpUtil.setQuest(quest);
 				List<GraphTier> tiers = buildGraphTier(quest.getQuestPathItems());
 				allTiers.add(tiers);
 			}
 			if (allTiers.size() > 0) {
-				//JSONArray jA = new JSONArray(allTiers);
-				//questTier = (jA.toString().replace(" ", "_").replace(".", "_").replace(")", "_").replace("(", "_"));
 				questTier = new JSONArray(allTiers).toString();
 			}
 			else {

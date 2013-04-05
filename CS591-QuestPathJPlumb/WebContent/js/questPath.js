@@ -120,7 +120,7 @@ function setLocation() {
 			k++;
 		}
 	} 
-	document.getElementById("testVar").value = JSON.stringify(qLayout);
+	document.getElementById("questLayout").value = JSON.stringify(qLayout);
 //	alert(document.getElementById("testVar").value);
 }
 

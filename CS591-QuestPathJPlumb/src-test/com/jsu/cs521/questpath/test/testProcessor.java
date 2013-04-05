@@ -1,6 +1,8 @@
 package com.jsu.cs521.questpath.test;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 
@@ -14,6 +16,11 @@ import com.jsu.cs521.questpath.buildingblock.util.QuestPathUtil;
 public class testProcessor {
 
 	public static void main(String args[]) {
+		Map<String, String> contentMap = new HashMap<String, String>();
+		contentMap.put("Hello", "World");
+		if (contentMap.containsKey("Hello")) {
+			System.out.println(contentMap.get("Hello"));
+		}
 		List<QuestPathItem> items = new ArrayList<QuestPathItem>();
 		items.addAll(buildQuests("C"));
 		items.addAll(buildQuests("D"));
