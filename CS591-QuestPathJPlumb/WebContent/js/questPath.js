@@ -79,9 +79,9 @@ function moveItems() {
 function waitForDependencies() {    
 	if (typeof jQueryLoaded === 'undefined' || typeof questsLoaded === 'undefined' || typeof jsPlumbLoaded === 'undefined'
 		|| typeof uiMinLoaded === 'undefined' || typeof uiTouchLoaded === 'undefined') {        
-		setTimeout(waitForDependencies, 1);}    
+		setTimeout(waitForDependencies, 0200);}    
 	else {
-		jsPlumb.bind("ready", function() {moveItems(); jsPlumbDemo.init();});
+		jsPlumb.bind("ready", function() {moveItems(); setTimeout(jsPlumbDemo.init, 0200);});
 	}
 }
 
