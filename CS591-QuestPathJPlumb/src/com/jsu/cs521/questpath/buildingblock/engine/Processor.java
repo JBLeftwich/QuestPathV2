@@ -151,7 +151,7 @@ public class Processor {
 			}
 			for (Content c : children) {
 				if (c.getTitle().equalsIgnoreCase("QuestPath")) {
-					qLayout = c.getBody().getText();
+					qLayout = c.getBody().getText().replace("<p>", "").replace("</p>", "");
 				}
 			}
 			if (qLayout.isEmpty()) {

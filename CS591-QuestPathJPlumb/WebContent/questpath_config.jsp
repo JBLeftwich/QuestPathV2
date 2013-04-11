@@ -73,7 +73,6 @@
 	var questsLoaded = true;
 	var questDraggable = true;
 </script>
-</bbNG:jsBlock>
 <script type="text/javascript">
 <jsp:include page="js/jquery.min.js" />
 <jsp:include page="ScriptFile.jsp" />
@@ -82,6 +81,7 @@
 <jsp:include page="js/json2.js" />
 <jsp:include page="js/questPath.js" />
 </script>
+</bbNG:jsBlock>
 <div class="legend">
 	<h5>LEGEND</h5>
 	<div class="legendColor passed">Passed</div>

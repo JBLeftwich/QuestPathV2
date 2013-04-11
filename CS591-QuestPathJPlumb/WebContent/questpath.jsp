@@ -76,7 +76,6 @@ var questTier = <%=proc.questTier%>;
 var questsLoaded = true;
 var questDraggable = false;
 </script>
-</bbNG:jsBlock>
 <script type="text/javascript">
 <jsp:include page="js/jquery.min.js" />
 <jsp:include page="ScriptFile.jsp" />
@@ -84,6 +83,7 @@ var questDraggable = false;
 <jsp:include page="js/jquery.ui.touch-punch.min.js" />
 <jsp:include page="js/questPath.js" />
 </script>
+</bbNG:jsBlock>
 <div class="legend"><h5>LEGEND</h5>
 <div class="legendColor passed">Passed</div>
 <div class="legendColor unlockedLegend">Unlocked</div>
