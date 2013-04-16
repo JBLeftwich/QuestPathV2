@@ -15,6 +15,8 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    Author: Jonathan Leftwich  Graduate Student at Jacksonville State University
 -->
 <%@page import="blackboard.platform.plugin.PlugInUtil"%>
 <%@page import="java.util.List" %>

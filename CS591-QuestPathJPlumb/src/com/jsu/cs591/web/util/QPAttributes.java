@@ -1,7 +1,11 @@
 package com.jsu.cs591.web.util;
 
 import com.jsu.cs521.questpath.buildingblock.object.QuestPathItem;
-
+/**
+ * 
+ * @author JBLeftwich
+ *
+ */
 public class QPAttributes {
 	
 	private String title;

@@ -1,4 +1,10 @@
-
+/**
+ * Main Script for Quest Path Building Block
+ * Author: Jonathan Leftwich  Graduate Student at Jacksonville State University
+ */
+/*
+ * Initial function to draw connectors after quest items have been put in place
+ */
 (function() {
 
 	window.jsPlumbDemo = {
@@ -23,21 +29,6 @@
 
 				overlays = [[ "Arrow", { location:0.5 }, arrowCommon ]];
 
-//				for (var i = 0; i < quests.length; i++) {
-//					for (var j = 0; j < quests[i].questPathItems.length; j++) {
-//						for (var k = 0; k < quests[i].questPathItems[j].childContent.length; k++) {
-//							if ((quests[i].questPathItems[j].passed && quests[i].questPathItems[j].unLocked) || 
-//									(!quests[i].questPathItems[j].gradable && quests[i].questPathItems[j].unLocked)) {
-//								jsPlumb.connect({source:i + '-' + quests[i].questPathItems[j].name,  
-//									target:i + "-" + quests[i].questPathItems[j].childContent[k], overlays:overlays});
-//							} else {
-//								jsPlumb.connect({source:i + '-' + quests[i].questPathItems[j].name,  
-//									target:i + "-" + quests[i].questPathItems[j].childContent[k], overlays:overlays});
-//							}
-//						}
-//					}
-//				}
-
 				var procQuests = new Array();
 				for (var i = 0; i < quests.length; i++) {
 					for (var j = 0; j < quests[i].questPathItems.length; j++) {
@@ -59,6 +50,9 @@
 
 })();
 
+/*
+ * Move quest items based on saved layout
+ */
 function moveItems() {
 	if (questLayout != null) {
 		var initWidth = questLayout.width;
@@ -76,6 +70,9 @@ function moveItems() {
 	}
 };
 
+/*
+ * Pause for other script files to be loaded
+ */
 function waitForDependencies() {    
 	if (typeof jQueryLoaded === 'undefined' || typeof questsLoaded === 'undefined' || typeof jsPlumbLoaded === 'undefined'
 		|| typeof uiMinLoaded === 'undefined' || typeof uiTouchLoaded === 'undefined') {        
@@ -96,6 +93,9 @@ function openAssignment(link) {
 
 }
 
+/*
+ * Set initial location, this is used by config page
+ */
 function setLocation() {
 	var qLayout = new Object();
 	qLayout.height = document.getElementById('questpathBlockContainer').offsetHeight;
@@ -103,12 +103,6 @@ function setLocation() {
 	qLayout.qItemLayout = new Array();
 	var k = 0;
 	for (var i = 0; i < quests.length; i++) {
-//		var qItem = new Object();
-//		qItem.name = "QP" + i;
-//		qItem.top = document.getElementById("QP" + i).style.top;
-//		qItem.left = document.getElementById("QP" + i).style.left;
-//		qLayout.qItemLayout[k] = qItem;
-//		k++;
 		for (var j = 0; j < quests[i].questPathItems.length; j++) {
 			var qItem = new Object();
 			qItem.extContentId = quests[i].questPathItems[j].extContentId;
@@ -121,28 +115,28 @@ function setLocation() {
 		}
 	} 
 	document.getElementById("questLayout").value = JSON.stringify(qLayout);
-//	alert(document.getElementById("testVar").value);
 }
 
+/*
+ * Redraw as page is resized
+ */
 window.onresize=function(){moveItems(); jsPlumbDemo.init();};
 
+/*
+ * Build initial layout graph
+ */
 function initLayout() {
 	init_height = document.getElementById('questpathBlockContainer').offsetHeight;
 	init_width = document.getElementById('questpathBlockContainer').offsetWidth;
 	pathWidth = init_width/questTier.length;
 	for (var i = 0; i < questTier.length; i++) {
-		//var x = document.getElementById("QP" + i);
-		//x.style.left = pathWidth * i + "px";
-		//x.style.top = 40 + "px";  //TODO change to calculate 1/20 of height
 		for (var j = 0; j < questTier[i].length; j++) {
 			tierWidth = (pathWidth/questTier[i][j].tier.length);
 			tierWidthCenter = tierWidth/2;
 			for (var k = 0; k < questTier[i][j].tier.length; k++) {
-	//			var x = document.getElementById(i + "-" + questTier[i][j].tier[k]);
 				var x = document.getElementById(questTier[i][j].tier[k]);
 				x.style.left = pathWidth * i  + (tierWidth * (k +1)) - tierWidthCenter  - (init_width/20) + "px";
 				x.style.top =  init_height/questTier[i].length * j + "px";
-				//alert(x.style.left + ":" + x.style.top);
 			}
 		}
 	}

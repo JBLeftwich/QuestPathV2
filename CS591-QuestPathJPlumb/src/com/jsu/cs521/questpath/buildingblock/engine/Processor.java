@@ -24,7 +24,11 @@ import com.jsu.cs521.questpath.buildingblock.object.QuestPath;
 import com.jsu.cs521.questpath.buildingblock.object.QuestPathItem;
 import com.jsu.cs521.questpath.buildingblock.object.QuestRule;
 import com.jsu.cs521.questpath.buildingblock.util.QuestPathUtil;
-
+/**
+ * 
+ * @author JBLeftwich
+ *
+ */
 public class Processor {
 	
 	private int i = 1;
@@ -86,6 +90,11 @@ public class Processor {
 		return paths;
 	}
 	
+/**
+ * Build tier structure for quest items
+ * @param items
+ * @return
+ */
 	public List<GraphTier>  buildGraphTier (List<QuestPathItem> items) {
 		List<GraphTier> graphTier = new ArrayList<GraphTier>();
 		int tier = 0;
@@ -130,6 +139,11 @@ public class Processor {
 		return graphTier;
 	}
 	
+/**
+ * Method does initial work to gather information and reports back to JSP
+ * @param ctx
+ * @throws PersistenceException
+ */
 	public void QPDriver (Context ctx) throws PersistenceException {
 		try {
 			Id courseID = ctx.getCourseId();

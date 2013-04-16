@@ -10,7 +10,11 @@ import blackboard.persist.Id;
 
 import com.jsu.cs521.questpath.buildingblock.object.QuestPath;
 import com.jsu.cs521.questpath.buildingblock.object.QuestPathItem;
-
+/**
+ * 
+ * @author JBLeftwich
+ *
+ */
 public class QuestPathTestObject {
 	
 	private List<QuestPath> qPaths = new ArrayList<QuestPath>();
