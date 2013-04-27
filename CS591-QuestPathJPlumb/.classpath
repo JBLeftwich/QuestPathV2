@@ -8,10 +8,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/Fall_Semester2012/CS521/Blackboard JARS/bb-cms-admin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/Fall_Semester2012/CS521/Blackboard JARS/bb-platform.jar"/>
-	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/Fall_Semester2012/CS521/Blackboard JARS/bb-taglibs.jar"/>
-	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/Fall_Semester2012/CS521/Blackboard JARS/servlet-api.jar"/>
 	<classpathentry kind="src" path="src-test"/>
+	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/School/Fall_Semester2012/CS521/Blackboard JARS/bb-cms-admin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/School/Fall_Semester2012/CS521/Blackboard JARS/bb-platform.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/School/Fall_Semester2012/CS521/Blackboard JARS/bb-taglibs.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JBLeftwich/Desktop/School/Fall_Semester2012/CS521/Blackboard JARS/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

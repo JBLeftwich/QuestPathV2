@@ -99,6 +99,12 @@
 <div id="questpathBlockContainer" class="mainDiv">
 <%=errorMsg %>
 </div>
-<script type="text/javascript">history.go(-2);</script>
+<script type="text/javascript">
+var errorMsg = '<%=errorMsg%>';
+if (errorMsg.length > 0) {
+	alert(errorMsg);
+}
+history.go(-2);
+</script>
 </body>
 </bbNG:includedPage>
