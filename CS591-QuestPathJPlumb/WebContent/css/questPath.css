@@ -56,6 +56,7 @@
 .legend {
  	position: absolute;
 	right: 5%;
+	max-width: 80px;
 	z-index:0;
 	border: thick;
 }

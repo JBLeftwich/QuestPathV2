@@ -45,7 +45,11 @@
 			ContentDbLoader cntDbLoader = ContentDbLoader.Default.getInstance();
 			List<CourseToc> tList = cTocLoader.loadByCourseId(courseId);
 			List<Content> children = new ArrayList<Content>();
+			String label = "";
+			String type = "";
 			for (CourseToc t : tList) {
+				//label = label + t.getLabel() + ";";
+				//type = type + t.getTargetType() + ";";
 				if (t.getTargetType() == CourseToc.Target.CONTENT) {
 					children.addAll(cntDbLoader.loadChildren(t.getContentId(), false, null));
 				}
@@ -63,31 +67,36 @@
 				}
 			}
 			Content courseDoc = new Content();
+			boolean questConfigCreated = false;
 			try {
  			if (!contentExists) {
- 				CourseToc toc = blackboard.persist.navigation.CourseTocDbLoader.Default.getInstance().loadByCourseIdAndLabel(courseId, "COURSE_DEFAULT.Content.CONTENT_LINK.label");
- 				courseDoc.setTitle("QuestPath");
- 				courseDoc.setCourseId(courseId);
- 				String strMainData = request.getParameter("questLayout");
- 				FormattedText text = new FormattedText(strMainData,FormattedText.Type.PLAIN_TEXT);
- 				courseDoc.setParentId(toc.getContentId());
- 				courseDoc.setBody( text );
- 				courseDoc.setCourseId(courseId);
- 				courseDoc.setIsAvailable(false);
- 				courseDoc.setIsTracked(false);
- 				courseDoc.setIsDescribed(false);
- 				courseDoc.setLaunchInNewWindow(false);
- 	            courseDoc.setAllowGuests(false);
- 	            courseDoc.setAllowObservers(false);
- 	            try {
-
- 	                blackboard.persist.content.ContentDbPersister.Default.getInstance().persist(courseDoc);
- 	            } catch (ValidationException ex) {
- 	                 errorMsg = ex.getLocalizedMessage();
- 	            } catch (PersistenceException ex) {
- 	            	errorMsg = ex.getLocalizedMessage();
- 	            }
-
+ 				for (CourseToc t : tList) {
+ 					if (t.getTargetType() == CourseToc.Target.CONTENT) {
+ 		 				//CourseToc toc = blackboard.persist.navigation.CourseTocDbLoader.Default.getInstance().loadByCourseIdAndLabel(courseId, "COURSE_DEFAULT.Content.CONTENT_LINK.label");
+ 						courseDoc.setTitle("QuestPath");
+ 		 				courseDoc.setCourseId(courseId);
+ 		 				String strMainData = request.getParameter("questLayout");
+ 		 				FormattedText text = new FormattedText(strMainData,FormattedText.Type.PLAIN_TEXT);
+ 		 				courseDoc.setParentId(t.getContentId());
+ 		 				courseDoc.setBody( text );
+ 		 				courseDoc.setCourseId(courseId);
+ 		 				courseDoc.setIsAvailable(false);
+ 		 				courseDoc.setIsTracked(false);
+ 		 				courseDoc.setIsDescribed(false);
+ 		 				courseDoc.setLaunchInNewWindow(false);
+ 		 	            courseDoc.setAllowGuests(false);
+ 		 	            courseDoc.setAllowObservers(false);
+ 		 	            try {
+ 		 	                blackboard.persist.content.ContentDbPersister.Default.getInstance().persist(courseDoc);
+ 		 	            } catch (ValidationException ex) {
+ 		 	                 errorMsg = ex.getLocalizedMessage();
+ 		 	            } catch (PersistenceException ex) {
+ 		 	            	errorMsg = ex.getLocalizedMessage();
+ 		 	            }
+ 		 	            break;
+ 					}
+ 					
+ 				}
  			}
 			}
 			catch (Exception e) {
